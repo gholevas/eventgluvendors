@@ -8,6 +8,13 @@ Invoice
 
 {{-- page level styles --}}
 @section('header_styles')
+<!--page level css -->
+<link href="{{ asset('assets/vendors/jasny-bootstrap/css/jasny-bootstrap.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('assets/vendors/x-editable/css/bootstrap-editable.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('assets/vendors/magnifier/css/imgmagnify.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('assets/vendors/iCheck/skins/all.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('assets/css/pages/user_profile.css') }}" rel="stylesheet" type="text/css"/>
+<!--end of page level css-->
 @stop
 
 
@@ -41,21 +48,34 @@ Invoice
                         <div class="panel panel-success height">
 
                             <div class="panel-heading">
-                                <div class="actions">
-                                    <a href="eventdetail.html" class="btn btn-default btn-sm pull-right">
-                                    <i class="glyphicon glyphicon-edit"></i>
-                                        Edit
-                                    </a>
-                                </div>
-
                                     Client Details</div>
-
                                 <div class="panel-body"> 
-                                    <b>Name:</b> Angela Smith<br>
-                                    <b>Email:</b> angela@gmail.com<br>
-                                    <b>Phone:</b> (718) 229 3829<br>
-                                    <b>Address:</b> 2234 Astoria Blvd.<br>
-                                    Astoria, NY 11032
+                                    <table class="table table-bordered table-striped" id="users">
+                                        <tr>
+                                            <td><b>Name</b></td>
+                                            <td>
+                                                <a href="#" data-pk="1" class="editable" data-title="Edit User Name">Angela Smith</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>Email</b></td>
+                                            <td>
+                                                <a href="#" data-pk="1" class="editable" data-title="Edit E-mail">angela@gmail.com</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>Phone</b></td>
+                                            <td>
+                                                <a href="#" data-pk="1" class="editable" data-title="Edit Phone Number">(999) 999-9999</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>Address</b></td>
+                                            <td>
+                                                <a href="#" data-pk="1" class="editable" data-title="Edit Address">2234 Astoria Blvd. Astoria, NY 11032</a>
+                                            </td>
+                                        </tr>
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -63,53 +83,86 @@ Invoice
                             <div class="panel panel-success height">
 
                                 <div class="panel-heading hidden-sm">
-                                    <div class="actions">
-                                        <a href="eventdetail.html" class="btn btn-default btn-sm pull-right">
-                                            <i class="glyphicon glyphicon-edit"></i>
-                                            Edit
-                                        </a>
-                                    </div>
                                     Event Summary</div>
                                     <div class="panel-heading hidden-lg hidden-md hidden-xs">Order Pre</div>
                                         <div class="panel-body" style="padding:15px 0px 36px 22px;">
-
-                                            <b>Date:</b> 12/15/2014<br>
-                                            <b>Time:</b> 6-10 PM<br>
-                                            <b>Room:</b> Ammos<br>
-                                            <b>Type:</b> Sweet16<br>
-                                            <b>Guests:</b> 80 adults, 20 kids (not confirmed)
+                                        <table class="table table-bordered table-striped" id="users">
+                                            <tr>
+                                                <td><b>Date</b></td>
+                                                <td>
+                                                    <a href="#" data-pk="1" class="editable" data-title="Edit User Name">12/15/2014</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Time</b></td>
+                                                <td>
+                                                    <a href="#" data-pk="1" class="editable" data-title="Edit E-mail">6-10 PM</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Room</b></td>
+                                                <td>
+                                                    <a href="#" data-pk="1" class="editable" data-title="Edit Phone Number">Ammos</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Type</b></td>
+                                                <td>
+                                                    <a href="#" data-pk="1" class="editable" data-title="Edit Address">Sweet16</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Guests</b></td>
+                                                <td>
+                                                    <a href="#" data-pk="1" class="editable" data-title="Edit Address">80 adults, 20 kids (not confirmed)</a>
+                                                </td>
+                                            </tr>
+                                        </table>    
                                         </div>
                                     </div>
                                 </div>
                             <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
                                 <div class="panel panel-success height">
                                     <div class="panel-heading">
-                                    <div class="actions">
-                                    <a href="eventdetail.html" class="btn btn-default btn-sm pull-right">
-                                        <i class="glyphicon glyphicon-edit"></i>
-                                            Edit
-                                        </a>
-                                        </div>
                                         Payment Info</div>
                                     <div class="panel-body" style="padding:15px 0px 55px 22px;">
-
-                                        <b>Card on file:</b> Yes<br>
-                                        <b>Card Type:</b>
-                                        Visa
-                                        <br>
-                                        <b>Card Number:</b>
-                                        ** 332
-                                        <br>
-                                        <b>Exp Date:</b>
-                                        09/2020
-                                        <br>
-                                        <b>Deposit:</b> $500<br>
-                                        <b>Balance:</b> $9758.45
-                                        <div style="margin-right:22px;" class="progress">
-                                        <div class="progress-bar progress-bar-primary progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 45%">
-                                          <span>45% Complete</span>
-                                        </div>
-                                         </div>
+                                        <table class="table table-bordered table-striped" id="users">
+                                            <tr>
+                                                <td><b>Card on file</b></td>
+                                                <td>
+                                                    <a href="#" data-pk="1" class="editable" data-title="Edit User Name">Yes</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Card Type</b></td>
+                                                <td>
+                                                    <a href="#" data-pk="1" class="editable" data-title="Edit E-mail">Visa</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Card Number</b></td>
+                                                <td>
+                                                    <a href="#" data-pk="1" class="editable" data-title="Edit Phone Number">** 332</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Deposit</b></td>
+                                                <td>
+                                                    <a href="#" data-pk="1" class="editable" data-title="Edit Address">$500</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Balance</b></td>
+                                                <td>
+                                                    <a href="#" data-pk="1" class="editable" data-title="Edit Address">$9758.45</a>
+                                                    <div style="margin-right:22px;" class="progress">
+                                                        <div class="progress-bar progress-bar-primary progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 45%">
+                                                          <span>45% Complete</span>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
@@ -220,4 +273,12 @@ Invoice
 
 {{-- page level scripts --}}
 @section('footer_scripts')
+<!-- begining of page level js -->
+<script src="{{ asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/vendors/x-editable/jquery.mockjax.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/vendors/x-editable/bootstrap-editable.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/vendors/magnifier/imgmagnify.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/vendors/iCheck/icheck.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/js/pages/user_profile.js') }}" type="text/javascript"></script>
+<!-- end of page level js -->
 @stop
