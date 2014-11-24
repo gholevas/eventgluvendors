@@ -9,20 +9,48 @@ $(function(){
    });    
     
     //editables 
-    $('#username').editable({
+    $('#firstname').editable({
            url: '/post',
            type: 'text',
            pk: 1,
-           name: 'username',
-           title: 'Enter username'
+           name: 'firstname',
+           title: 'Enter first name'
     });
-    
-    $('#firstname').editable({
-        validate: function(value) {
-           if($.trim(value) == '') return 'This field is required';
-        }
+    $('#lastname').editable({
+           url: '/post',
+           type: 'text',
+           pk: 1,
+           name: 'lastname',
+           title: 'Enter last name'
     });
-    
+    $('#primary').editable({
+           url: '/post',
+           type: 'text',
+           pk: 1,
+           name: 'primary',
+           title: 'Enter primary number'
+    });
+    $('#secondary').editable({
+           url: '/post',
+           type: 'text',
+           pk: 1,
+           name: 'secondary',
+           title: 'Enter secondary number'
+    });
+    $('#fax').editable({
+           url: '/post',
+           type: 'text',
+           pk: 1,
+           name: 'fax',
+           title: 'Enter fax number'
+    });
+    $('#email').editable({
+           url: '/post',
+           type: 'text',
+           pk: 1,
+           name: 'email',
+           title: 'Enter email address'
+    });
     $('#sex').editable({
         prepend: "Not Selected",
         source: [
@@ -135,9 +163,9 @@ $(function(){
     $('#address').editable({
         url: '/post',
         value: {
-            city: "Moscow", 
-            street: "Lenina", 
-            building: "12"
+            city: "2030 Steinway st.", 
+            street: "Astoria", 
+            building: "NY"
         },
         validate: function(value) {
             if(value.city == '') return 'city is required!'; 
@@ -147,7 +175,7 @@ $(function(){
                 $(this).empty();
                 return; 
             }
-            var html = '<b>' + $('<div>').text(value.city).html() + '</b>, ' + $('<div>').text(value.street).html() + ' st., bld. ' + $('<div>').text(value.building).html();
+            var html = $('<div>').text(value.city).html() + ', ' + $('<div>').text(value.street).html() + ', ' + $('<div>').text(value.building).html();
             $(this).html(html); 
         }         
     });              

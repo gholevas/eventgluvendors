@@ -350,14 +350,14 @@
                             </a>
                     
                         </li>
-                        <li {{ (Request::is('admin/mail_box') ? 'class="active"' : '') }}>
+                        <li {{ (Request::is('admin/mail_box') || Request::is('admin/compose') || Request::is('admin/sent') || Request::is('admin/trash') || Request::is('admin/spam') || Request::is('admin/draft') ? 'class="active"' : '') }}>
                             <a href="{{ URL::to('admin/mail_box') }}">
                                 <i class="livicon" data-name="mail" data-c="#7cc142" data-hc="#7cc142" data-size="18" data-loop="true"></i>
                                 <span class="title">Inbox</span>
                                 <span class="badge badge-danger">10</span>
                             </a>
                         </li>
-                        <li {{ (Request::is('admin/clients') || Request::is('admin/buttons') || Request::is('admin/advanced_buttons') || Request::is('admin/tabs_accordions') || Request::is('admin/panels') || Request::is('admin/icon') || Request::is('admin/color') || Request::is('admin/grid') || Request::is('admin/carousel') || Request::is('admin/advanced_modals') || Request::is('admin/tagsinput') || Request::is('admin/nestable') || Request::is('admin/toastr') || Request::is('admin/notifications') || Request::is('admin/session_timeout') || Request::is('admin/portlet_draggable') ? 'class="active"' : '') }}>
+                        <li {{ (Request::is('admin/clients') ? 'class="active"' : '') }}>
                             <a href="{{ URL::to('admin/clients') }}">
                                 <i class="livicon" data-name="users" data-c="#7cc142" data-hc="#7cc142" data-size="18" data-loop="true"></i>
                                 <span class="title">Clients</span>

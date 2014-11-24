@@ -51,7 +51,7 @@ $(function(){
                 $(element).empty();
                 return; 
             }
-            var html = $('<div>').text(value.city).html() + ', ' + $('<div>').text(value.street).html() + ' st., bld. ' + $('<div>').text(value.building).html();
+            var html = $('<div>').text(value.city).html() + ', ' + $('<div>').text(value.street).html() + $('<div>').text(value.building).html();
             $(element).html(html); 
         },
         
@@ -158,9 +158,9 @@ $(function(){
     });
 
     Address.defaults = $.extend({}, $.fn.editabletypes.abstractinput.defaults, {
-        tpl: '<div class="editable-address"><label><span>City: </span><input type="text" name="city" class="input-small"></label></div>'+
-             '<div class="editable-address"><label><span>Street: </span><input type="text" name="street" class="input-small"></label></div>'+
-             '<div class="editable-address"><label><span>Building: </span><input type="text" name="building" class="input-mini"></label></div>',
+        tpl: '<div class="editable-address"><label><span>Street Address: </span><input type="text" name="city" class="input-small"></label></div>'+
+             '<div class="editable-address"><label><span>City: </span><input type="text" name="street" class="input-small"></label></div>'+
+             '<div class="editable-address"><label><span>State: </span><input type="text" name="building" class="input-mini"></label></div>',
              
         inputclass: ''
     });
