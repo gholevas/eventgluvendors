@@ -44,11 +44,11 @@ $(function(){
            name: 'fax',
            title: 'Enter fax number'
     });
-    $('#email').editable({
+    $('#emailaddress').editable({
            url: '/post',
            type: 'text',
            pk: 1,
-           name: 'email',
+           name: 'emailaddress',
            title: 'Enter email address'
     });
     $('#sex').editable({

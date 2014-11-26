@@ -28,10 +28,27 @@
     <!-- end of global css -->
     <!--page level css-->
     @yield('header_styles')
+    <!--modal level css -->
+    <link href="{{ asset('assets/vendors/modal/css/component.css') }}" rel="stylesheet" />
     <!--end of page level css-->
+    <!--end of page level css-->
+    <!-- daterange picker -->
+    <link href="{{ asset('assets/vendors/daterangepicker/css/daterangepicker-bs3.css') }}" rel="stylesheet" type="text/css" />
+    <!--select css-->
+    <link href="{{ asset('assets/vendors/select2/select2.css') }}" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ asset('assets/vendors/select2/select2-bootstrap.css') }}" />
+    <!--clock face css-->
+    <link href="{{ asset('assets/vendors/iCheck/skins/all.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/css/pages/formelements.css') }}" rel="stylesheet" />
+        <!--page level css -->
+    <link href="css/pages/form_layouts.css" rel="stylesheet" type="text/css"/>
+    <!--end of page level css-->
+    <link href="{{ asset('assets/css/pages/form_layouts.css') }}" rel="stylesheet" type="text/css"/>
+
+
 </head>
 
-<body class="skin-josh">
+<body onload="initialize()" class="skin-josh">
     <header class="header" id="HEADER_1">
         <a href="{{ URL::to('admin/index') }}" class="logo">
             <img src="{{ asset('assets/img/logo.png') }}" alt="logo">
@@ -60,11 +77,11 @@
                                     </li>
                                     <li>
                                         <i class="livicon success" data-n="magic" data-s="20" data-c="white" data-hc="white"></i>
-                                        <a data-toggle="modal" data-href="#responsive" href="#responsive">New Quote</a>
+                                        <a data-toggle="modal" data-href="#newQuote" href="#newQuote">New Quote</a>
                                     </li>
                                     <li>
                                         <i class="livicon success" data-n="users" data-s="20" data-c="white" data-hc="white"></i>
-                                        <a data-toggle="modal" data-href="#responsive" href="#responsive">New Client</a>
+                                        <a data-toggle="modal" data-href="#newClient" href="#newClient">New Client</a>
                                     </li>
                                 </ul>
                             </li>
@@ -252,82 +269,210 @@
             </div>
         </nav>
     </header>
-<!--- responsive model -->
+<!--- new event responsive model -->
     <div class="modal fade in" id="newEvent" tabindex="-1" role="dialog" aria-hidden="false" style="display:none;">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    <h4 class="modal-title">New Event</h4>
-                </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Event Name</label>
-                                <input id="name" name="name" type="text" placeholder="ex. Maria's Sweet 16" class="form-control">
-                                <br>
-                                <label>Date and Time</label>
-                                <div class="input-group date form_datetime5 col-md-12" data-date="2012-12-21T15:25:00Z" data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
-                                    <input size="16" type="text" value="" class="form-control" readonly>
-                                    <span class="input-group-addon">
-                                        <span class="glyphicon glyphicon-remove"></span>
-                                    </span>
-                                    <span class="input-group-addon">
-                                        <span class="glyphicon glyphicon-th"></span>
-                                    </span>
+                        <!--basic form starts-->
+                        <div class="panel panel-primary" id="hidepanel1">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">
+                                    <i class="livicon" data-name="inbox" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
+                                    New Event
+                                </h3>
                             </div>
-                         <div class="form-group">
-                         <br>
-                            <label>Event Duration</label>
-                            <div class="form-group">
-                                <input id="duration" type="text" value="4" name="duration" class="form-control">
-                            </div>
-                            
-                            <label>Guests</label>
-                            <br>
-                            <div class="form-group col-md-6">
-                                <input id="adults" type="text" value="50" name="adults" class="form-control">
-                            </div>
-                            
-                            <div class="form-group col-md-6">
-                                <input id="kids" type="text" value="50" name="kids" class="form-control">
+                            <div class="panel-body border">
+                                <form class="form-horizontal form-bordered" action="#" method="post">
+                                    <fieldset>
+                                        <!-- Name input-->
+                                        <div class="form-group striped-col">
+                                            <label class="col-md-3 control-label" for="name">Event Name</label>
+                                            <div class="col-md-9">
+                                                <input id="name" name="name" type="text" placeholder="ex. Maria's Sweet 16" class="form-control"></div>
+                                        </div>
+                                         <!--select2 starts-->
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label" for="name">
+                                                Room
+                                            </label>
+                                            <div class="col-md-9">
+                                            <select id="e1" class="form-control select2">
+                                                    <option value="Room1">Select a Room</option>
+                                                    <option value="Room1">Room1</option>
+                                                    <option value="Room2">Room2</option>
+                                            </select>
+                                            </div>
+                                        </div>
+                                        <!-- Name input-->
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label" for="name">
+                                                Date and Time
+                                            </label>
+                                            <div class="input-group date form_datetime5 col-md-9 pull-right" data-date="2012-12-21T15:25:00Z" data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
+                                                <input type="text" value="" class="form-control" readonly>
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-remove"></span>
+                                                </span>
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-th"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <!-- Name input-->
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label" for="name">Event Duration</label>
+                                            <input id="demo1" type="text" value="4" name="demo1" class="form-control"></div>
+                                        <!-- Name input-->
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label" for="name">Guests</label>
+
+                                            <div class="col-md-offset-3">
+                                            <input id="adults" type="text" value="50" name="adults" class="form-control">
+                                            </div>
+                                            <div class="col-md-offset-3">
+                                            <input id="kids" type="text" value="50" name="kids" class="form-control">
+                                            </div> 
+                                        </div>
+                                        <!-- Email input-->
+                                        <div class="form-group">
+                                            <label for="single-append-text" class="col-md-3 control-label">
+                                                Client
+                                            </label>
+                                            <div class="input-group select2-bootstrap-append">
+                                                <select id="single-append-text" class="form-control select2-allow-clear">
+                                                        <option value="0">Search for Client</option>
+                                                        <option value="1">John Doe</option>
+                                                        <option value="2">Peter Willis</option>
+                                                </select>
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default" type="button" data-select2-open="single-append-text">
+                                                        <span class="glyphicon glyphicon-search"></span>
+                                                    </button>
+                                                </span>
+                                                <a class="btn btn-default pull-right" data-toggle="modal" href="#newClient">Create New Client</a>
+                                            </div>
+                                        </div>
+                                        <!-- Message body -->
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label" for="message">Notes</label>
+                                            <div class="col-md-9">
+                                                <textarea class="form-control" id="message" name="message" placeholder="Enter your notes here..." rows="5"></textarea>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </form>
                             </div>
                         </div>
-
-                        </div>
-                            
-                        </div>
-                        <div class="col-md-6">
-
-
-                            <div class="form-group">
-                                <label>Client Name</label>
-                                <input id="name" name="name" type="text" placeholder="ex. Angela Smith" class="form-control">
-                                <br>
-                                <label>Client Phone</label>
-                                <div class="input-group">
-                                <div class="input-group-addon">
-                                    <i class="fa fa-phone"></i>
-                                </div>
-                                <input type="text" class="form-control" data-inputmask='"mask": "(999) 999-9999"' data-mask/>
-                            </div><br>
-                            <label>Client Email</label>
-                                <input id="email" name="email" type="text" placeholder="ex. angela@gmail.com" class="form-control">
-                                
-
-                            </div>
-                        </div>
+                        <!-- Form actions -->
+                <div class="form-group">
+                    <div class="col-md-12 text-right">
+                        <button type="submit" class="btn btn-responsive btn-primary pull-right">Create New Event</button>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" data-dismiss="modal" class="btn">Cancel</button>
-                    <a type="button" href="eventdetail.html" class="btn btn-primary">Create New Event</a>
+                    </div>
+
                 </div>
             </div>
         </div>
     </div>
     <!-- END modal-->
+    <!--- see client responsive model -->
+    <div class="modal fade in" id="newClient" tabindex="-1" role="dialog" aria-hidden="false" style="display:none;">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row">
+                        <!--basic form starts-->
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">
+                                    <i class="livicon" data-name="users" data-c="#fff" data-hc="#fff" data-size="18" data-loop="true"></i>
+                                    New Client
+                                </h3>
+                            </div>
+                            <div class="panel-body border">
+                                <form action="#" method="post" enctype="multipart/form-data" class="form-horizontal form-bordered">
+                                    <div class="form-body">
+                                        <div class="form-group striped-col">
+                                            <label for="inputUsername" class="col-md-3 control-label">
+                                            <i class="livicon" data-name="user" data-size="18" data-c="#000" data-hc="#000" data-loop="true"></i>
+                                            </label>
+                                            <div class="col-md-9 pull-right">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" placeholder=" First name"></div>
+                                            </div>
+                                            <div class="col-md-9 pull-right">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" placeholder=" Last name"></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="inputUsername" class="col-md-3 control-label">
+                                                <i class="livicon" data-name="cellphone" data-size="18" data-c="#000" data-hc="#000" data-loop="true"></i>
+                                            </label>
+                                            <div class="col-md-9 pull-right">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" placeholder=" Primary number"></div>
+                                            </div>
+                                            <div class="col-md-9 pull-right">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" placeholder=" Secondary number"></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group striped-col">
+                                            <label for="inputUsername" class="col-md-3 control-label">
+                                                <i class="livicon" data-name="printer" data-size="18" data-c="#000" data-hc="#000" data-loop="true"></i>
+                                            </label>
+                                            <div class="col-md-9 pull-right">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" placeholder=" Fax number"></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="inputEmail" class="col-md-3 control-label">
+                                                <i class="livicon" data-name="mail" data-size="18" data-c="#000" data-hc="#000" data-loop="true"></i>
+                                            </label>
+                                            <div class="col-md-9 pull-right">
+                                                <div class="input-group">
+                                                    <input type="text" placeholder=" Email address" class="form-control"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group striped-col">
+                                            <label for="inputAddress" class="col-md-3 control-label">
+                                                <i class="livicon" data-name="map" data-c="#000" data-hc="#000" data-size="18" data-loop="true"></i>
+                                            </label>
+                                            <div class="col-md-9 pull-right">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" id="location_input" placeholder=" Address"></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="inputContent" class="col-md-3 control-label">
+                                            <i class="livicon" data-name="doc-portrait" data-c="#000" data-hc="#000" data-size="18" data-loop="true"></i>
+                                            </label>
+                                            <div class="col-md-9 pull-right">
+                                                <textarea id="inputContent" rows="3" class="form-control" placeholder=" Enter your notes here..."></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <div class="form-actions">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-offset-3 col-md-9">
+                            <button type="submit" class="btn btn-primary pull-right">Create New Client</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- END modal-->
     <div class="wrapper row-offcanvas row-offcanvas-left">
         <!-- Left side column. contains the logo and sidebar -->
         <aside class="left-side sidebar-offcanvas">
@@ -590,13 +735,31 @@
 <script src="{{ asset('assets/vendors/touchspin/dist/jquery.bootstrap-touchspin.js') }}"></script>
 <script>
     $("input[name='demo1']").TouchSpin({
-        min: 0,
-        max: 100,
-        step: 0.1,
-        decimals: 2,
+        min: 1,
+        max: 12,
+        step: .5,
+        decimals: 1,
+        boostat: 2,
+        maxboostedstep: 5,
+        postfix: 'hours'
+    });
+    $("input[name='adults']").TouchSpin({
+        min: 1,
+        max: 500,
+        step: 1,
+        decimals: 0,
         boostat: 5,
-        maxboostedstep: 10,
-        postfix: '%'
+        maxboostedstep: 50,
+        postfix: 'adults'
+    });
+    $("input[name='kids']").TouchSpin({
+        min: 1,
+        max: 500,
+        step: 1,
+        decimals: 0,
+        boostat: 5,
+        maxboostedstep: 50,
+        postfix: 'kids'
     });
 
     $("input[name='demo2']").TouchSpin({
@@ -715,5 +878,24 @@
         });
     })
 </script>
+<!-- modal  -->
+<script src="{{ asset('assets/vendors/modal/js/classie.js') }}"></script>
+<script src="{{ asset('assets/vendors/modal/js/modalEffects.js') }}"></script>
+
+<!-- begining of page level js -->
+<!-- InputMask -->
+<script src="{{ asset('assets/vendors/input-mask/jquery.inputmask.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/vendors/input-mask/jquery.inputmask.date.extensions.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/vendors/input-mask/jquery.inputmask.extensions.js') }}" type="text/javascript"></script>
+<!-- date-range-picker -->
+<script src="{{ asset('assets/vendors/daterangepicker/daterangepicker.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/vendors/select2/select2.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/vendors/iCheck/icheck.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/vendors/iCheck/demo/js/custom.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/vendors/autogrow/js/jQuery-autogrow.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/vendors/maxlength/bootstrap-maxlength.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/js/pages/formelements.js') }}" type="text/javascript"></script>
+
+
 </body>
 </html>

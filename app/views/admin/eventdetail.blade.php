@@ -54,25 +54,25 @@ Invoice
                                         <tr>
                                             <td><b>Name</b></td>
                                             <td>
-                                                <a href="#" data-pk="1" class="editable" data-title="Edit User Name">Angela Smith</a>
+                                                <a href="#" id="country" data-type="select2" data-pk="1" data-value="BS" data-title="Select country" class="editable editable-click">Bahamas</a>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td><b>Email</b></td>
                                             <td>
-                                                <a href="#" data-pk="1" class="editable" data-title="Edit E-mail">angela@gmail.com</a>
+                                                angela@gmail.com
                                             </td>
                                         </tr>
                                         <tr>
                                             <td><b>Phone</b></td>
                                             <td>
-                                                <a href="#" data-pk="1" class="editable" data-title="Edit Phone Number">(999) 999-9999</a>
+                                                (999) 999-9999
                                             </td>
                                         </tr>
                                         <tr>
                                             <td><b>Address</b></td>
                                             <td>
-                                                <a href="#" data-pk="1" class="editable" data-title="Edit Address">2234 Astoria Blvd. Astoria, NY 11032</a>
+                                                2234 Astoria Blvd. Astoria, NY 11032
                                             </td>
                                         </tr>
                                     </table>
@@ -281,4 +281,5 @@ Invoice
 <script src="{{ asset('assets/vendors/iCheck/icheck.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/js/pages/user_profile.js') }}" type="text/javascript"></script>
 <!-- end of page level js -->
+
 @stop

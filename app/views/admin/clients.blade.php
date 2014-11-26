@@ -11,6 +11,13 @@ Clients | eventGL&uuml;
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/datatables/css/select2.css') }}" />
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/datatables/css/dataTables.bootstrap.css') }}" />
 <link href="{{ asset('assets/css/pages/tables.css') }}" rel="stylesheet" type="text/css" />
+<!-- page level css -->
+<link href="{{ asset('assets/vendors/x-editable/css/x-select.css') }}" type="text/css" rel="stylesheet" />
+<link href="{{ asset('assets/vendors/x-editable/css/bootstrap-editable.css') }}" type="text/css" rel="stylesheet" />
+<link href="{{ asset('assets/vendors/x-editable/css/x-selectbootstrap.css') }}" type="text/css" rel="stylesheet" />
+<link href="{{ asset('assets/vendors/x-editable/css/typehead-bootstrap.css') }}" type="text/css" rel="stylesheet" />
+<link href="{{ asset('assets/css/pages/inlinedit.css') }}" rel="stylesheet" />
+<!-- end of page level css -->
 @stop
 
 
@@ -81,7 +88,7 @@ Clients | eventGL&uuml;
                                             1 month ago
                                         </td>
                                         <td>
-                                            <a href="{{ URL::to('admin/user_show') }}">
+                                            <a href="#" data-toggle="modal" data-target="#show_profile">
                                                 <i class="livicon" data-name="info" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="view user"></i>
                                             </a>
                                             <a href="#" data-toggle="modal" data-target="#delete_confirm">
@@ -102,7 +109,7 @@ Clients | eventGL&uuml;
                                             4 weeks ago
                                         </td>
                                         <td>
-                                            <a href="{{ URL::to('admin/user_show') }}">
+                                            <a href="#" data-toggle="modal" data-target="#show_profile">
                                                 <i class="livicon" data-name="info" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="view user"></i>
                                             </a>
                                             <a href="#" data-toggle="modal" data-target="#delete_confirm">
@@ -121,7 +128,7 @@ Clients | eventGL&uuml;
                                             3 weeks ago
                                         </td>
                                         <td>
-                                            <a href="{{ URL::to('admin/user_show') }}">
+                                            <a href="#" data-toggle="modal" data-target="#show_profile">
                                                 <i class="livicon" data-name="info" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="view user"></i>
                                             </a>
                                             <a href="#" data-toggle="modal" data-target="#delete_confirm">
@@ -140,7 +147,7 @@ Clients | eventGL&uuml;
                                             2 weeks ago
                                         </td>
                                         <td>
-                                            <a href="{{ URL::to('admin/user_show') }}">
+                                            <a href="#" data-toggle="modal" data-target="#show_profile">
                                                 <i class="livicon" data-name="info" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="view user"></i>
                                             </a>
                                             <a href="#" data-toggle="modal" data-target="#delete_confirm">
@@ -159,7 +166,7 @@ Clients | eventGL&uuml;
                                             2 weeks ago
                                         </td>
                                         <td>
-                                            <a href="{{ URL::to('admin/user_show') }}">
+                                            <a href="#" data-toggle="modal" data-target="#show_profile">
                                                 <i class="livicon" data-name="info" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="view user"></i>
                                             </a>
                                             <a href="#" data-toggle="modal" data-target="#delete_confirm">
@@ -178,7 +185,7 @@ Clients | eventGL&uuml;
                                             2 weeks ago
                                         </td>
                                         <td>
-                                            <a href="{{ URL::to('admin/user_show') }}">
+                                            <a href="#" data-toggle="modal" data-target="#show_profile">
                                                 <i class="livicon" data-name="info" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="view user"></i>
                                             </a>
                                             <a href="#" data-toggle="modal" data-target="#delete_confirm">
@@ -197,7 +204,7 @@ Clients | eventGL&uuml;
                                             2 weeks ago
                                         </td>
                                         <td>
-                                            <a href="{{ URL::to('admin/user_show') }}">
+                                            <a href="#" data-toggle="modal" data-target="#show_profile">
                                                 <i class="livicon" data-name="info" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="view user"></i>
                                             </a>
                                             <a href="#" data-toggle="modal" data-target="#delete_confirm">
@@ -216,7 +223,7 @@ Clients | eventGL&uuml;
                                             2 weeks ago
                                         </td>
                                         <td>
-                                            <a href="{{ URL::to('admin/user_show') }}">
+                                            <a href="#" data-toggle="modal" data-target="#show_profile">
                                                 <i class="livicon" data-name="info" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="view user"></i>
                                             </a>
                                             <a href="#" data-toggle="modal" data-target="#delete_confirm">
@@ -235,7 +242,7 @@ Clients | eventGL&uuml;
                                             2 weeks ago
                                         </td>
                                         <td>
-                                            <a href="{{ URL::to('admin/user_show') }}">
+                                            <a href="#" data-toggle="modal" data-target="#show_profile">
                                                 <i class="livicon" data-name="info" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="view user"></i>
                                             </a>
                                             <a href="#" data-toggle="modal" data-target="#delete_confirm">
@@ -254,7 +261,7 @@ Clients | eventGL&uuml;
                                             2 weeks ago
                                         </td>
                                         <td>
-                                            <a href="{{ URL::to('admin/user_show') }}">
+                                            <a href="#" data-toggle="modal" data-target="#show_profile">
                                                 <i class="livicon" data-name="info" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="view user"></i>
                                             </a>
                                             <a href="#" data-toggle="modal" data-target="#delete_confirm">
@@ -273,7 +280,7 @@ Clients | eventGL&uuml;
                                             2 weeks ago
                                         </td>
                                         <td>
-                                            <a href="{{ URL::to('admin/user_show') }}">
+                                            <a href="#" data-toggle="modal" data-target="#show_profile">
                                                 <i class="livicon" data-name="info" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="view user"></i>
                                             </a>
                                             <a href="#" data-toggle="modal" data-target="#delete_confirm">
@@ -292,7 +299,7 @@ Clients | eventGL&uuml;
                                             2 weeks ago
                                         </td>
                                         <td>
-                                            <a href="{{ URL::to('admin/user_show') }}">
+                                            <a href="#" data-toggle="modal" data-target="#show_profile">
                                                 <i class="livicon" data-name="info" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="view user"></i>
                                             </a>
                                             <a href="#" data-toggle="modal" data-target="#delete_confirm">
@@ -311,7 +318,7 @@ Clients | eventGL&uuml;
                                             2 weeks ago
                                         </td>
                                         <td>
-                                            <a href="{{ URL::to('admin/user_show') }}">
+                                            <a href="#" data-toggle="modal" data-target="#show_profile">
                                                 <i class="livicon" data-name="info" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="view user"></i>
                                             </a>
                                             <a href="#" data-toggle="modal" data-target="#delete_confirm">
@@ -330,7 +337,7 @@ Clients | eventGL&uuml;
                                             2 weeks ago
                                         </td>
                                         <td>
-                                            <a href="{{ URL::to('admin/user_show') }}">
+                                            <a href="#" data-toggle="modal" data-target="#show_profile">
                                                 <i class="livicon" data-name="info" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="view user"></i>
                                             </a>
                                             <a href="#" data-toggle="modal" data-target="#delete_confirm">
@@ -349,7 +356,7 @@ Clients | eventGL&uuml;
                                             2 weeks ago
                                         </td>
                                         <td>
-                                            <a href="{{ URL::to('admin/user_show') }}">
+                                            <a href="#" data-toggle="modal" data-target="#show_profile">
                                                 <i class="livicon" data-name="info" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="view user"></i>
                                             </a>
                                             <a href="#" data-toggle="modal" data-target="#delete_confirm">
@@ -368,7 +375,7 @@ Clients | eventGL&uuml;
                                             2 weeks ago
                                         </td>
                                         <td>
-                                            <a href="{{ URL::to('admin/user_show') }}">
+                                            <a href="#" data-toggle="modal" data-target="#show_profile">
                                                 <i class="livicon" data-name="info" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="view user"></i>
                                             </a>
                                             <a href="#" data-toggle="modal" data-target="#delete_confirm">
@@ -387,7 +394,7 @@ Clients | eventGL&uuml;
                                             2 weeks ago
                                         </td>
                                         <td>
-                                            <a href="{{ URL::to('admin/user_show') }}">
+                                            <a href="#" data-toggle="modal" data-target="#show_profile">
                                                 <i class="livicon" data-name="info" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="view user"></i>
                                             </a>
                                             <a href="#" data-toggle="modal" data-target="#delete_confirm">
@@ -406,7 +413,7 @@ Clients | eventGL&uuml;
                                             2 weeks ago
                                         </td>
                                         <td>
-                                            <a href="{{ URL::to('admin/user_show') }}">
+                                            <a href="#" data-toggle="modal" data-target="#show_profile">
                                                 <i class="livicon" data-name="info" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="view user"></i>
                                             </a>
                                             <a href="#" data-toggle="modal" data-target="#delete_confirm">
@@ -425,7 +432,7 @@ Clients | eventGL&uuml;
                                             2 weeks ago
                                         </td>
                                         <td>
-                                            <a href="{{ URL::to('admin/user_show') }}">
+                                            <a href="#" data-toggle="modal" data-target="#show_profile">
                                                 <i class="livicon" data-name="info" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="view user"></i>
                                             </a>
                                             <a href="#" data-toggle="modal" data-target="#delete_confirm">
@@ -444,7 +451,7 @@ Clients | eventGL&uuml;
                                             2 weeks ago
                                         </td>
                                         <td>
-                                            <a href="{{ URL::to('admin/user_show') }}">
+                                            <a href="#" data-toggle="modal" data-target="#show_profile">
                                                 <i class="livicon" data-name="info" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="view user"></i>
                                             </a>
                                             <a href="#" data-toggle="modal" data-target="#delete_confirm">
@@ -463,7 +470,7 @@ Clients | eventGL&uuml;
                                             2 weeks ago
                                         </td>
                                         <td>
-                                            <a href="{{ URL::to('admin/user_show') }}">
+                                            <a href="#" data-toggle="modal" data-target="#show_profile">
                                                 <i class="livicon" data-name="info" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="view user"></i>
                                             </a>
                                             <a href="#" data-toggle="modal" data-target="#delete_confirm">
@@ -482,7 +489,7 @@ Clients | eventGL&uuml;
                                             2 weeks ago
                                         </td>
                                         <td>
-                                            <a href="{{ URL::to('admin/user_show') }}">
+                                            <a href="#" data-toggle="modal" data-target="#show_profile">
                                                 <i class="livicon" data-name="info" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="view user"></i>
                                             </a>
                                             <a href="#" data-toggle="modal" data-target="#delete_confirm">
@@ -501,7 +508,7 @@ Clients | eventGL&uuml;
                                             2 weeks ago
                                         </td>
                                         <td>
-                                            <a href="{{ URL::to('admin/user_show') }}">
+                                            <a href="#" data-toggle="modal" data-target="#show_profile">
                                                 <i class="livicon" data-name="info" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="view user"></i>
                                             </a>
                                             <a href="#" data-toggle="modal" data-target="#delete_confirm">
@@ -520,7 +527,7 @@ Clients | eventGL&uuml;
                                             2 weeks ago
                                         </td>
                                         <td>
-                                            <a href="{{ URL::to('admin/user_show') }}">
+                                            <a href="#" data-toggle="modal" data-target="#show_profile">
                                                 <i class="livicon" data-name="info" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="view user"></i>
                                             </a>
                                             <a href="#" data-toggle="modal" data-target="#delete_confirm">
@@ -539,7 +546,7 @@ Clients | eventGL&uuml;
                                             2 weeks ago
                                         </td>
                                         <td>
-                                            <a href="{{ URL::to('admin/user_show') }}">
+                                            <a href="#" data-toggle="modal" data-target="#show_profile">
                                                 <i class="livicon" data-name="info" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="view user"></i>
                                             </a>
                                             <a href="#" data-toggle="modal" data-target="#delete_confirm">
@@ -558,7 +565,7 @@ Clients | eventGL&uuml;
                                             2 weeks ago
                                         </td>
                                         <td>
-                                            <a href="{{ URL::to('admin/user_show') }}">
+                                            <a href="#" data-toggle="modal" data-target="#show_profile">
                                                 <i class="livicon" data-name="info" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="view user"></i>
                                             </a>
                                             <a href="#" data-toggle="modal" data-target="#delete_confirm">
@@ -577,7 +584,7 @@ Clients | eventGL&uuml;
                                             2 weeks ago
                                         </td>
                                         <td>
-                                            <a href="{{ URL::to('admin/user_show') }}">
+                                            <a href="#" data-toggle="modal" data-target="#show_profile">
                                                 <i class="livicon" data-name="info" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="view user"></i>
                                             </a>
                                             <a href="#" data-toggle="modal" data-target="#delete_confirm">
@@ -596,7 +603,7 @@ Clients | eventGL&uuml;
                                             2 weeks ago
                                         </td>
                                         <td>
-                                            <a href="{{ URL::to('admin/user_show') }}">
+                                            <a href="#" data-toggle="modal" data-target="#show_profile">
                                                 <i class="livicon" data-name="info" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="view user"></i>
                                             </a>
                                             <a href="#" data-toggle="modal" data-target="#delete_confirm">
@@ -626,6 +633,89 @@ Clients | eventGL&uuml;
                                     </div>
                                 </div>
                             </div>
+                            <!--- see client responsive model -->
+                            <div class="modal fade in" id="show_profile" tabindex="-1" role="dialog" aria-hidden="false" style="display:none;">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                            <h4 class="modal-title">Client Info</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="row">
+                                                <div class="panel panel-info">
+                                                    <div class="panel-heading">
+                                                        <h4 class="panel-title">
+                                                            <i class="livicon" data-name="user" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
+                                                            John Doe
+                                                        </h4>
+                                                    </div>
+                                                    <div class="panel-body">
+                                                        <div class="table-responsive">
+                                                            <table id="user" class="table table-bordered table-striped" style="clear:both">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td>First Name</td>
+                                                                        <td>
+                                                                            <a href="#" id="firstname" data-type="text" data-pk="1" data-title="Enter first name" class="editable editable-click" data-original-title="" title="">John</a>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>Last Name</td>
+                                                                        <td>
+                                                                            <a href="#" id="lastname" data-type="text" data-pk="1" data-title="Enter last name" class="editable editable-click" data-original-title="" title="">Doe</a>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>Primary Number</td>
+                                                                        <td>
+                                                                            <a href="#" id="primary" data-type="text" data-pk="1" data-title="Enter primary number" class="editable editable-click" data-original-title="" title="">(718) 223 2321</a>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>Secondary Number</td>
+                                                                        <td>
+                                                                            <a href="#" id="secondary" data-type="text" data-pk="1" data-title="Enter secondary number" class="editable editable-click" data-original-title="" title=""></a>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>Fax Number</td>
+                                                                        <td>
+                                                                            <a href="#" id="fax" data-type="text" data-pk="1" data-title="Enter fax number" class="editable editable-click" data-original-title="" title=""></a>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>Email</td>
+                                                                        <td>
+                                                                            <a href="#" id="emailaddress" data-type="text" data-pk="1" data-title="Enter email address" class="editable editable-click" data-original-title="" title="">johndoe@gmail.com</a>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>Address</td>
+                                                                        <td>
+                                                                            <a id="address" data-type="address" data-pk="1" data-title="Please, fill address" class="editable editable-click" data-original-title="" title=""> <b>Moscow</b>
+                                                                                , Lenina st., bld. 12
+                                                                            </a>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>Notes</td>
+                                                                        <td>
+                                                                            <a href="#" id="comments" data-type="textarea" data-pk="1" data-placeholder="Your comments here..." data-title="Enter comments" class="editable editable-pre-wrapped editable-click">Awesome client!</a>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- END modal-->
+
                         </div>
                     </div>
                 </div>
@@ -655,4 +745,36 @@ $(function () {
     });
 });
 </script>
+<script src="{{ asset('assets/vendors/x-editable/jquery.mockjax.js') }}"></script>
+<script src="{{ asset('assets/vendors/x-editable/moment.min.js') }}"></script>
+<script src="{{ asset('assets/vendors/x-editable/select2.js') }}"></script>
+<script>var f = 'bootstrap3';</script>
+<script src="{{ asset('assets/vendors/x-editable/bootstrap-editable.js') }}"></script>
+<script src="{{ asset('assets/vendors/x-editable/typeahead.js') }}"></script>
+<script src="{{ asset('assets/vendors/x-editable/typeaheadjs.js') }}"></script>
+<script src="{{ asset('assets/vendors/x-editable/address.js') }}"></script>
+<script>
+    var c = window.location.href.match(/c=inline/i) ? 'popup' : 'inline';
+    $.fn.editable.defaults.mode = c === 'popup' ? 'popup' : 'inline';
+
+    $(function() {
+        $('#f').val(f);
+        $('#c').val(c);
+
+        $('#frm').submit(function() {
+            var f = $('#f').val();
+            if (f === 'jqueryui') {
+                $(this).attr('action', 'demo-jqueryui.html');
+            } else if (f === 'plain') {
+                $(this).attr('action', 'demo-plain.html');
+            } else if (f === 'bootstrap2') {
+                $(this).attr('action', 'demo.html');
+            } else {
+                $(this).attr('action', 'x-editable');
+            }
+        });
+    });
+</script>
+<script src="{{ asset('assets/vendors/x-editable/demo-mock.js') }}"></script>
+<script src="{{ asset('assets/vendors/x-editable/demo.js') }}"></script>
 @stop

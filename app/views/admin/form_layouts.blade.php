@@ -248,11 +248,11 @@ Form Layouts
                                                     </div>
                                                     <div class="form-actions">
                                                         <div class="col-md-offset-3 col-md-9">
-                                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                                            <button type="button" class="btn btn-danger pull-right">Cancel</button>
                                                             &nbsp;
-                                                            <button type="button" class="btn btn-danger">Cancel</button>
+                                                            <button type="submit" class="btn btn-primary pull-right">Submit</button>
                                                             &nbsp;
-                                                            <input type="reset" class="btn btn-default hidden-xs" value="Reset"></div>
+                                                        </div>
                                                     </div>
                                                 </form>
                                             </div>

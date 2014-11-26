@@ -34,6 +34,16 @@ Portlets
             </section>
             <!-- Main content -->
             <section class="content">
+                <div class="form-group col-md-offset-10">
+                    <label>Sort by:</label>
+                    <select class="form-control">
+                    <option>Date</option>
+                    <option>Room</option>
+                    <option>Type</option>
+                    <option>Price</option>
+                    <option>Time</option>
+                    </select>
+                </div>
                 <div class="row ui-sortable" id="sortable_portlets">
                     <div class="col-md-4 column sortable">
                         <!-- BEGIN Portlet PORTLET-->
