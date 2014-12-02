@@ -504,8 +504,16 @@
                                         <h4>Event Details</h4>
 										<form class="form-horizontal form-bordered" action="#" method="post">
                                     <fieldset>
-                                         <!--select2 starts-->
+										<!-- Name input-->
                                         <div class="form-group striped-col">
+                                            <label class="col-md-3 control-label" for="name">Event Name</label>
+                                            <div class="col-md-9">
+                                                <input id="name" name="name" type="text" placeholder="ex. Maria's Sweet 16" class="form-control"></div>
+                                        </div>
+								
+                                         <!--select2 starts-->
+										
+                                        <div class="form-group">
                                             <label class="col-md-3 control-label" for="name">
                                                 Room
                                             </label>
@@ -518,7 +526,7 @@
                                             </div>
                                         </div>
                                         <!-- Name input-->
-                                        <div class="form-group">
+                                        <div class="form-group striped-col">
                                             <label class="col-md-3 control-label" for="name">
                                                 Date and Time
                                             </label>
@@ -533,11 +541,11 @@
                                             </div>
                                         </div>
                                         <!-- Name input-->
-                                        <div class="form-group striped-col">
+                                        <div class="form-group">
                                             <label class="col-md-3 control-label" for="name">Event Duration</label>
                                             <input id="demo1" type="text" value="4" name="demo1" class="form-control"></div>
                                         <!-- Name input-->
-                                        <div class="form-group">
+                                        <div class="form-group striped-col">
                                             <label class="col-md-3 control-label" for="name">Guests</label>
 
                                             <div class="col-md-offset-3">
@@ -547,8 +555,16 @@
                                             <input id="kids" type="text" value="50" name="kids" class="form-control">
                                             </div> 
                                         </div>
-                                        <!-- Name input-->
-                                        <div class="form-group striped-col">
+                                       
+                                    </fieldset>
+                                </form>
+                                 
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h4>Order Details</h4>
+										<form class="form-horizontal form-bordered" action="#" method="post">
+                                    <fieldset>
+									   <div class="form-group striped-col">
                                             <label class="col-md-3 control-label" for="name">
                                                 Food package
                                             </label>
@@ -626,94 +642,12 @@
                                         <!-- Name input-->
                                         <div class="form-group">
                                             <label class="col-md-3 control-label" for="name">Discount</label>
-                                            <input id="demo1" type="text" value="4" name="demo1" class="form-control"></div>
+                                            <input id="demo1" type="text" value="10" name="demo1" class="form-control"></div>
                                         
-                                    </fieldset>
-                                </form>
-                                 
-                                    </div>
-                                    <div class="col-md-6">
-                                        <h4>Quote</h4>
-                           
                               
-                                    <div class="table-responsive">
-                                        <table class="table table-condensed">
-                                            <thead>
-                                                <tr>
-                                                    <td>
-                                                        <strong>Item Name</strong>
-                                                    </td>
-                                                    <td class="text-center">
-                                                        <strong>Item Price</strong>
-                                                    </td>
-                                                    <td class="text-center">
-                                                        <strong>Item Quantity</strong>
-                                                    </td>
-                                                    <td class="text-right">
-                                                        <strong>Total</strong>
-                                                    </td>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td><b>Food</b><br>Buffet Menu<br>&nbsp;&nbsp;&nbsp;Calamari<br>&nbsp;&nbsp;&nbsp;Filet Mignon<br>&nbsp;&nbsp;&nbsp;Roasted Leg of Lamb</td>
-                                                    <td class="text-center"><br><br>$3.50<br>$8.00<br>$8.00</td>
-                                                    <td class="text-center"><br>80</td>
-                                                    <td class="text-right"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td><b>Drink</b><br>Premium Open Bar</td>
-                                                    <td class="text-center"></td>
-                                                    <td class="text-center">80</td>
-                                                    <td class="text-right"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="highrow"></td>
-                                                    <td class="highrow"></td>
-                                                    <td class="highrow text-center">
-                                                        <strong>Price per person</strong>
-                                                    </td>
-                                                    <td class="highrow text-right">$99.50</td>
-                                                </tr>
-												<tr>
-                                                    <td class="highrow"></td>
-                                                    <td class="highrow"></td>
-                                                    <td class="highrow text-center">
-                                                        <strong>Discount (10%)</strong>
-                                                    </td>
-                                                    <td class="highrow text-right">$9.99</td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="emptyrow"></td>
-                                                    <td class="emptyrow"></td>
-                                                    <td class="emptyrow text-center">
-                                                        <strong>Tax</strong>
-                                                    </td>
-                                                    <td class="emptyrow text-right">$706.45</td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="emptyrow"></td>
-                                                    <td class="emptyrow"></td>
-                                                    <td class="emptyrow text-center">
-                                                        <strong>Gratuity</strong>
-                                                    </td>
-                                                    <td class="emptyrow text-right">$1592.00</td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="emptyrow">
-                                                        <i class="livicon" data-name="barcode" data-size="60" data-loop="true"></i>
-                                                    </td>
-                                                    <td class="emptyrow"></td>
-                                                    <td class="emptyrow text-center">
-                                                    <strong>Total</strong>
-                                                </td>
-                                                <td class="emptyrow text-right">$10,258.45</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-										
-                                </div>
-                     
+                                    
+											</fieldset>
+										</form>
                         
 										
 										
@@ -724,6 +658,42 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
+								<div class="table-responsive danger">
+                                        <table class="table table-condensed">
+                                            <thead>
+                                                <tr>
+                                                    <td>
+                                                        <strong>Price per person</strong>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <strong>Discount (10%)</strong>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <strong>Tax</strong>
+                                                    </td>
+													<td class="text-center">
+                                                        <strong>Gratuity</strong>
+                                                    </td>
+                                                    <td class="text-right">
+                                                        <strong>Total</strong>
+                                                    </td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="highrow">$99.50</td>
+                                                    <td class="highrow">$9.99</td>
+                                                    <td class="highrow">$706.45</td>
+                                                    <td class="highrow">$1592.00</td>
+													<td class="highrow">$10,258.45</td>
+                                                </tr>
+                                        </tbody>
+                                    </table>
+										
+                                </div>
+								
+							
+
                                 <button type="button" data-dismiss="modal" class="btn">Close</button>
 								<button type="button" class="btn btn-warning">Create Lead</button>
                                 <button type="button" class="btn btn-success">Create Confirmed Event</button>
@@ -950,13 +920,13 @@
 <script src="{{ asset('assets/vendors/touchspin/dist/jquery.bootstrap-touchspin.js') }}"></script>
 <script>
     $("input[name='demo1']").TouchSpin({
-        min: 1,
-        max: 12,
-        step: .5,
+        min: .5,
+        max: 100,
+        step: .1,
         decimals: 1,
         boostat: 2,
         maxboostedstep: 5,
-        postfix: 'hours'
+        postfix: '%'
     });
     $("input[name='adults']").TouchSpin({
         min: 1,
