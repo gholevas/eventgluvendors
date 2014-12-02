@@ -242,7 +242,7 @@
                             </li>
                             <!-- Menu Body -->
                             <li>
-                                <a href="#">
+                                <a href="signup">
                                     <i class="livicon" data-name="pen" data-s="18"></i>
                                     Manage Venue Listing
                                 </a>
