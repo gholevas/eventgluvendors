@@ -40,11 +40,14 @@ Clients | eventGL&uuml;
                     <div class="panel panel-primary ">
                         <div class="btn-group pull-right">
                             <button class="btn dropdown-toggle btn-primary" data-toggle="dropdown">
-                                Tools
+                                <i class="livicon" data-name="gear" data-size="20" data-loop="true" data-c="#fff" data-hc="#fff"></i>
                                 <i class="fa fa-angle-down"></i>
                             </button>
                             <ul class="dropdown-menu pull-right">
                                 <li>
+                                    <a data-toggle="modal" data-href="#newClient" href="#newClient">New Client</a>
+                                </li>
+								<li>
                                     <a href="#">Print</a>
                                 </li>
                                 <li>

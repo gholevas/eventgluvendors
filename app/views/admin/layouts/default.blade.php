@@ -243,8 +243,8 @@
                             <!-- Menu Body -->
                             <li>
                                 <a href="#">
-                                    <i class="livicon" data-name="user" data-s="18"></i>
-                                    My Profile
+                                    <i class="livicon" data-name="pen" data-s="18"></i>
+                                    Manage Venue Listing
                                 </a>
                             </li>
                             <li role="presentation"></li>
@@ -292,8 +292,21 @@
                                             <div class="col-md-9">
                                                 <input id="name" name="name" type="text" placeholder="ex. Maria's Sweet 16" class="form-control"></div>
                                         </div>
-                                         <!--select2 starts-->
+										<!--select2 starts-->
                                         <div class="form-group">
+                                            <label class="col-md-3 control-label" for="name">
+                                                Type
+                                            </label>
+                                            <div class="col-md-9">
+                                            <select id="e1" class="form-control select2">
+                                                    <option value="Room1">Select a Type</option>
+                                                    <option value="Room1">Sweet 16</option>
+                                                    <option value="Room2">Corporate Event</option>
+                                            </select>
+                                            </div>
+                                        </div>
+                                         <!--select2 starts-->
+                                        <div class="form-group striped-col">
                                             <label class="col-md-3 control-label" for="name">
                                                 Room
                                             </label>
@@ -321,7 +334,7 @@
                                             </div>
                                         </div>
                                         <!-- Name input-->
-                                        <div class="form-group">
+                                        <div class="form-group striped-col">
                                             <label class="col-md-3 control-label" for="name">Event Duration</label>
                                             <input id="demo1" type="text" value="4" name="demo1" class="form-control"></div>
                                         <!-- Name input-->
@@ -336,7 +349,7 @@
                                             </div> 
                                         </div>
                                         <!-- Email input-->
-                                        <div class="form-group">
+                                        <div class="form-group striped-col">
                                             <label for="single-append-text" class="col-md-3 control-label">
                                                 Client
                                             </label>
@@ -368,7 +381,8 @@
                         <!-- Form actions -->
                 <div class="form-group">
                     <div class="col-md-12 text-right">
-                        <button type="submit" class="btn btn-responsive btn-primary pull-right">Create New Event</button>
+						<button type="submit" class="btn btn-responsive btn-warning">Create New Lead</button>&nbsp;&nbsp;&nbsp;
+                        <button type="submit" class="btn btn-responsive btn-success pull-right">Create New Confirmed Event</button>
                     </div>
                 </div>
                     </div>
@@ -473,6 +487,254 @@
         </div>
     </div>
 <!-- END modal-->
+	
+	
+	<!--- new quote model -->
+                <div class="modal fade in" id="newQuote" tabindex="-1" role="dialog" aria-hidden="false" style="display:none;">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header success">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                <h4 class="modal-title">New Quote Generator</h4>
+                            </div>
+							
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h4>Event Details</h4>
+										<form class="form-horizontal form-bordered" action="#" method="post">
+                                    <fieldset>
+                                         <!--select2 starts-->
+                                        <div class="form-group striped-col">
+                                            <label class="col-md-3 control-label" for="name">
+                                                Room
+                                            </label>
+                                            <div class="col-md-9">
+                                            <select id="e1" class="form-control select2">
+                                                    <option value="Room1">Select a Room</option>
+                                                    <option value="Room1">Room1</option>
+                                                    <option value="Room2">Room2</option>
+                                            </select>
+                                            </div>
+                                        </div>
+                                        <!-- Name input-->
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label" for="name">
+                                                Date and Time
+                                            </label>
+                                            <div class="input-group date form_datetime5 col-md-9 pull-right" data-date="2012-12-21T15:25:00Z" data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
+                                                <input type="text" value="" class="form-control" readonly>
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-remove"></span>
+                                                </span>
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-th"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <!-- Name input-->
+                                        <div class="form-group striped-col">
+                                            <label class="col-md-3 control-label" for="name">Event Duration</label>
+                                            <input id="demo1" type="text" value="4" name="demo1" class="form-control"></div>
+                                        <!-- Name input-->
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label" for="name">Guests</label>
+
+                                            <div class="col-md-offset-3">
+                                            <input id="adults" type="text" value="50" name="adults" class="form-control">
+                                            </div>
+                                            <div class="col-md-offset-3">
+                                            <input id="kids" type="text" value="50" name="kids" class="form-control">
+                                            </div> 
+                                        </div>
+                                        <!-- Name input-->
+                                        <div class="form-group striped-col">
+                                            <label class="col-md-3 control-label" for="name">
+                                                Food package
+                                            </label>
+                                            <div class="col-md-offset-3">
+                                            <select id="e1" class="form-control select2">
+                                                    <option value="Room1">Select a package</option>
+                                                    <option value="Room1">Passing Menu</option>
+                                                    <option value="Room2">Buffet Menu</option>
+													<option value="Room2">Standard Menu</option>
+                                            </select>
+											
+											</div>
+											
+												<div class="col-md-offset-3">
+												<div class="span4">
+													<div class="form-control display-no">
+													<select id="e1" class="form-control select2">
+                                                    <option value="Room1">Select a package</option>
+                                                    <option value="Room1">Passing Menu</option>
+                                                    <option value="Room2">Buffet Menu</option>
+													<option value="Room2">Standard Menu</option>
+													</select>
+													</div>
+													<a onclick="$(this).closest('.span4').find('div').toggle(); $(this).text(this.text=='Different package for kids?'?'Same package as adults':'Different package for kids?');return false;" href="#">Different package for kids?</a>
+                                        		</div>
+												</div>
+                                          
+											
+                                        </div>
+                                         <!--select2 starts-->
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label" for="name">
+                                                Drink package
+                                            </label>
+                                            <div class="col-md-9">
+                                            <select id="e1" class="form-control select2">
+                                                    <option value="Room1">Select a package</option>
+                                                    <option value="Room1">Cash Bar</option>
+                                                    <option value="Room2">Premium Open Bar</option>
+                                            </select>
+												
+                                            </div>
+											<div class="col-md-offset-3">
+												<div class="span5">
+													<div class="form-control display-no">
+													<select id="e1" class="form-control select2">
+                                                    <option value="Room1">Select a package</option>
+                                                    <option value="Room1">Passing Menu</option>
+                                                    <option value="Room2">Buffet Menu</option>
+													<option value="Room2">Standard Menu</option>
+													</select>
+													</div>
+													<a onclick="$(this).closest('.span5').find('div').toggle(); $(this).text(this.text=='Different package for kids?'?'Same package as adults':'Different package for kids?');return false;" href="#">Different package for kids?</a>
+                                        		</div>
+												</div>
+                                        </div>
+						
+                                        <!-- Name input-->
+										<div class="form-group striped-col">
+                                            <label class="col-md-3 control-label" for="name">
+                                                Add-Ons
+                                            </label>
+                                            <div class="col-md-9">
+                                            
+												<label>
+													<input type="checkbox" class="flat-red" />
+												</label>Extra hour<br>
+												<label>
+													<input type="checkbox" class="flat-red" />
+												</label>Vianese Table
+												
+											
+                                            </div>
+                                        </div>
+                                        <!-- Name input-->
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label" for="name">Discount</label>
+                                            <input id="demo1" type="text" value="4" name="demo1" class="form-control"></div>
+                                        
+                                    </fieldset>
+                                </form>
+                                 
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h4>Quote</h4>
+                           
+                              
+                                    <div class="table-responsive">
+                                        <table class="table table-condensed">
+                                            <thead>
+                                                <tr>
+                                                    <td>
+                                                        <strong>Item Name</strong>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <strong>Item Price</strong>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <strong>Item Quantity</strong>
+                                                    </td>
+                                                    <td class="text-right">
+                                                        <strong>Total</strong>
+                                                    </td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td><b>Food</b><br>Buffet Menu<br>&nbsp;&nbsp;&nbsp;Calamari<br>&nbsp;&nbsp;&nbsp;Filet Mignon<br>&nbsp;&nbsp;&nbsp;Roasted Leg of Lamb</td>
+                                                    <td class="text-center"><br><br>$3.50<br>$8.00<br>$8.00</td>
+                                                    <td class="text-center"><br>80</td>
+                                                    <td class="text-right"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>Drink</b><br>Premium Open Bar</td>
+                                                    <td class="text-center"></td>
+                                                    <td class="text-center">80</td>
+                                                    <td class="text-right"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="highrow"></td>
+                                                    <td class="highrow"></td>
+                                                    <td class="highrow text-center">
+                                                        <strong>Price per person</strong>
+                                                    </td>
+                                                    <td class="highrow text-right">$99.50</td>
+                                                </tr>
+												<tr>
+                                                    <td class="highrow"></td>
+                                                    <td class="highrow"></td>
+                                                    <td class="highrow text-center">
+                                                        <strong>Discount (10%)</strong>
+                                                    </td>
+                                                    <td class="highrow text-right">$9.99</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="emptyrow"></td>
+                                                    <td class="emptyrow"></td>
+                                                    <td class="emptyrow text-center">
+                                                        <strong>Tax</strong>
+                                                    </td>
+                                                    <td class="emptyrow text-right">$706.45</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="emptyrow"></td>
+                                                    <td class="emptyrow"></td>
+                                                    <td class="emptyrow text-center">
+                                                        <strong>Gratuity</strong>
+                                                    </td>
+                                                    <td class="emptyrow text-right">$1592.00</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="emptyrow">
+                                                        <i class="livicon" data-name="barcode" data-size="60" data-loop="true"></i>
+                                                    </td>
+                                                    <td class="emptyrow"></td>
+                                                    <td class="emptyrow text-center">
+                                                    <strong>Total</strong>
+                                                </td>
+                                                <td class="emptyrow text-right">$10,258.45</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+										
+                                </div>
+                     
+                        
+										
+										
+										
+										
+										
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" data-dismiss="modal" class="btn">Close</button>
+								<button type="button" class="btn btn-warning">Create Lead</button>
+                                <button type="button" class="btn btn-success">Create Confirmed Event</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END modal-->
+	
+	
+	
     <div class="wrapper row-offcanvas row-offcanvas-left">
         <!-- Left side column. contains the logo and sidebar -->
         <aside class="left-side sidebar-offcanvas">
@@ -487,20 +749,6 @@
                                 <span class="title">Dashboard</span>
                             </a>
 
-                        </li>
-                        <li {{ (Request::is('admin/new_quote') ? 'class="active"' : '') }}>
-                            <a href="{{ URL::to('admin/new_quote') }}">
-                                <i class="livicon" data-name="magic" data-size="18" data-c="#7cc142" data-hc="#7cc142" data-loop="true"></i>
-                                <span class="title">New Quote</span>
-                            </a>
-                    
-                        </li>
-                        <li {{ (Request::is('admin/mail_box') || Request::is('admin/compose') || Request::is('admin/sent') || Request::is('admin/trash') || Request::is('admin/spam') || Request::is('admin/draft') ? 'class="active"' : '') }}>
-                            <a href="{{ URL::to('admin/mail_box') }}">
-                                <i class="livicon" data-name="mail" data-c="#7cc142" data-hc="#7cc142" data-size="18" data-loop="true"></i>
-                                <span class="title">Inbox</span>
-                                <span class="badge badge-danger">10</span>
-                            </a>
                         </li>
                         <li {{ (Request::is('admin/clients') ? 'class="active"' : '') }}>
                             <a href="{{ URL::to('admin/clients') }}">
@@ -535,42 +783,9 @@
                                 </li>
                             </ul>
                         </li>
-                        <li {{ (Request::is('admin/manage_venue_details') || Request::is('admin/manage_rooms') || Request::is('admin/manage_images') || Request::is('admin/manage_menus') ? 'class="active"' : '') }}>
-                            <a href="#">
-                                <i class="livicon" data-name="pen" data-c="#7cc142" data-hc="#7cc142" data-size="18" data-loop="true"></i>
-                                <span class="title">Manage Listing</span>
-                                <span class="fa arrow"></span>
-                            </a>
-                            <ul class="sub-menu">
-                                <li {{ (Request::is('admin/manage_venue_details') ? 'class="active"' : '') }}>
-                                    <a href="{{ URL::to('admin/manage_venue_details') }}">
-                                        <i class="fa fa-angle-double-right"></i>
-                                        Manage Venue Details
-                                    </a>
-                                </li>
-                                <li {{ (Request::is('admin/manage_rooms') ? 'class="active"' : '') }}>
-                                    <a href="{{ URL::to('admin/manage_rooms') }}">
-                                        <i class="fa fa-angle-double-right"></i>
-                                        Manage Rooms
-                                    </a>
-                                </li>
-                                <li {{ (Request::is('admin/manage_images') ? 'class="active"' : '') }}>
-                                    <a href="{{ URL::to('admin/manage_images') }}">
-                                        <i class="fa fa-angle-double-right"></i>
-                                        Manage Images
-                                    </a>
-                                </li>
-                                <li {{ (Request::is('admin/manage_menus') ? 'class="active"' : '') }}>
-                                    <a href="{{ URL::to('admin/manage_menus') }}">
-                                        <i class="fa fa-angle-double-right"></i>
-                                        Manage Menus/Prices
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
                         <li {{ (Request::is('admin/calendar') ? 'class="active"' : '') }}>
                             <a href="#">
-                                <i class="livicon" data-name="inbox" data-c="#7cc142" data-hc="#7cc142" data-size="18" data-loop="true"></i>
+                                <i class="livicon" data-name="calendar" data-c="#7cc142" data-hc="#7cc142" data-size="18" data-loop="true"></i>
                                 <span class="title">Manage Calendars</span>
                                 <span class="fa arrow"></span>
                             </a>

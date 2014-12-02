@@ -2,7 +2,7 @@
 
 {{-- Page title --}}
 @section('title')
-Dashboard
+Event Detail
 @parent
 @stop
 

@@ -2,7 +2,7 @@
 
 {{-- Page title --}}
 @section('title')
-Portlets
+Upcoming Events
 @parent
 @stop
 
@@ -34,7 +34,11 @@ Portlets
             </section>
             <!-- Main content -->
             <section class="content">
-                <div class="form-group col-md-offset-10">
+                <div class="form-group col-md-2 col-md-offset-8">
+                    <label>Search:</label>
+                    <input class="form-control"/>
+                </div>
+				<div class="form-group col-md-offset-10">
                     <label>Sort by:</label>
                     <select class="form-control">
                     <option>Date</option>
