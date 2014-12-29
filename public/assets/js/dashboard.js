@@ -238,7 +238,7 @@ var data = [], totalPoints = 300;
           separator: ',',
           decimal: '.'
     }
-    var demo = new countUp("myTargetElement1", 12.52, 9500, 0, 6, options);
+    /*var demo = new countUp("myTargetElement1", 12.52, 9500, 0, 6, options);
     demo.start();
     var demo = new countUp("myTargetElement2", 1, 100, 0, 6, options);
     demo.start();
@@ -261,7 +261,7 @@ var data = [], totalPoints = 300;
     var demo = new countUp("myTargetElement4.1", 2544, 56000, 0, 6, options);
     demo.start();
     var demo = new countUp("myTargetElement4.2", 1584, 219864, 0, 6, options);
-    demo.start();
+    demo.start();*/
     var my_posts = $("[rel=tooltip]");
 
         var size = $(window).width();

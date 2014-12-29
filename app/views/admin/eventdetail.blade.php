@@ -13,101 +13,35 @@ Event Name
 <link href="{{ asset('assets/css/pages/user_profile.css') }}" rel="stylesheet" type="text/css"/>
 <link rel="stylesheet" href="{{ asset('assets/css/only_dashboard.css') }}" />
 <!--end of page level css-->
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/datatables/css/select2.css') }}" />
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/datatables/css/dataTables.bootstrap.css') }}" />
-<link href="{{ asset('assets/css/pages/tables.css') }}" rel="stylesheet" type="text/css" />
-<!-- page level css -->
-<link href="{{ asset('assets/vendors/x-editable/css/x-select.css') }}" type="text/css" rel="stylesheet" />
-<link href="{{ asset('assets/vendors/x-editable/css/bootstrap-editable.css') }}" type="text/css" rel="stylesheet" />
-<link href="{{ asset('assets/vendors/x-editable/css/x-selectbootstrap.css') }}" type="text/css" rel="stylesheet" />
-<link href="{{ asset('assets/vendors/x-editable/css/typehead-bootstrap.css') }}" type="text/css" rel="stylesheet" />
-<link href="{{ asset('assets/css/pages/inlinedit.css') }}" rel="stylesheet" />
-<!-- end of page level css -->
-
-
-<style>
-	
-
-.chat
-{
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-.chat li
-{
-    margin-bottom: 10px;
-    padding-bottom: 5px;
-    border-bottom: 1px dotted #B3A9A9;
-}
-
-.chat li.left .chat-body
-{
-    margin-left: 60px;
-}
-
-.chat li.right .chat-body
-{
-    margin-right: 60px;
-}
-
-
-.chat li .chat-body p
-{
-    margin: 0;
-    color: #777777;
-}
-
-.panel .slidedown .glyphicon, .chat .glyphicon
-{
-    margin-right: 5px;
-}
-
-
-.chat-scroll
-{
-    overflow-y: scroll;
-    height: 250px;
-}
-
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-</style>
-
+<script>
+	var EVENT_DETAIL_ID = '{{{$event->id}}}';
+	var EVENT_CLIENT_ID = '{{{$event->client_id}}}';
+</script>
 @stop
 
 
 {{-- Page content --}}
 @section('content')
 <section class="content-header">
-    <h1>Maria's Sweet 16</h1>
+    <h1>{{{$event->title}}}</h1>
     <ol class="breadcrumb">
         <li>
             <a href="index"> <i class="livicon" data-name="home" data-size="16" data-color="#000"></i>
                 Dashboard
             </a>
         </li>
-        <li class="active">Upcoming Events</li>
-        <li class="active">Maria's Sweet 16</li>
+        <li class="active">@if ($event->start_time >= time()) @if ($event->confirmed == 0) Leads @else Upcoming Events @endif @else Past Events @endif</li>
+        <li class="active">{{{$event->title}}}</li>
     </ol>
 </section>
 
-
 <!-- Main content -->
+@if ($set_confirmed)
+<div class="alert alert-success alert-dismissable'"><p>The event has been confirmed.</p></div>
+@endif
+
 <section class="content paddingleft_right15">
-    <div class="row">		
-         
-			
+    <div class="row">
             <div class="panel-body">
                 <div class="row">
                     <div class="col-xs-12  col-sm-4 col-md-4 col-lg-4 pull-left">
@@ -127,36 +61,48 @@ Event Name
                             <div class="panel-heading">
                                     <strong>Client Details</strong>
 							</div>
-                                <div class="panel-body"> 
-                                    <table class="table table-bordered table-striped" id="users">
+                                <div class="panel-body" style="padding:15px 0px 55px 22px;">
+                                    <table class="table table-bordered table-striped">
                                         <tr>
                                             <td><b>Name</b></td>
                                             <td>
-                                                Angela Doe
+                                                {{{$client->first_name}}} {{{$client->last_name}}}
                                             </td>
                                         </tr>
                                         <tr>
                                             <td><b>Email</b></td>
                                             <td>
-                                                angela@gmail.com
+                                                @if (strlen($client->email) > 0)
+                                                {{{$client->email}}}
+                                                @else
+                                                Not Provided
+                                                @endif
                                             </td>
                                         </tr>
                                         <tr>
                                             <td><b>Phone</b></td>
                                             <td>
-                                                (999) 999-9999
+                                                {{{$client->phone_number}}}
                                             </td>
                                         </tr>
                                         <tr>
                                             <td><b>Address</b></td>
                                             <td>
-                                                2234 Astoria Blvd. Astoria, NY 11032
+                                                @if (strlen($client->address) > 0)
+                                                {{{$client->address}}}
+                                                @else
+                                                Not Provided
+                                                @endif
                                             </td>
                                         </tr>
 										<tr>
                                             <td><b>Notes</b></td>
                                             <td>
+                                                @if (strlen($client->notes) > 0)
+                                                {{{$client->notes}}}
+                                                @else
                                                 None
+                                                @endif
                                             </td>
                                         </tr>
                                     </table>
@@ -174,48 +120,56 @@ Event Name
 										<li>
 											<a data-toggle="modal" data-href="#editEvent" href="#editEvent">Edit</a>
 										</li>
+                                        @if ($event->confirmed == 0)
+                                        <li>
+                                            <a data-toggle="modal" data-href="#confirmEvent" href="#confirmEvent">Confirm Event</a>
+                                        </li>
+                                        @endif
+                                        <li>
+                                            <a data-toggle="modal" data-href="#cancelEvent" href="#cancelEvent">Cancel Event</a>
+                                        </li>
 									</ul>
 									</div>
                                 <div class="panel-heading hidden-sm">
                                     <strong>Event Summary</strong>
 								</div>
-                                    <div class="panel-heading hidden-lg hidden-md hidden-xs">Order Pre</div>
-                                        <div class="panel-body" style="padding:15px 0px 36px 22px;">
-                                        <table class="table table-bordered table-striped" id="users">
+<!--                                    <div class="panel-heading hidden-lg hidden-md hidden-xs">Order Pre</div> -->
+                                    <div class="panel-body" style="padding:15px 0px 36px 22px;">
+                                        <table class="table table-bordered table-striped">
                                             <tr>
                                                 <td><b>Event Name</b></td>
                                                 <td>
-                                                    Maria's Sweet 16
+                                                    {{{$event->title}}}
                                                 </td>
                                             </tr>
 											<tr>
                                                 <td><b>Date</b></td>
                                                 <td>
-                                                    12/15/2014
+                                                    {{{date('m/d/Y', $event->start_time)}}}
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td><b>Time</b></td>
                                                 <td>
-                                                   	6-10 PM
+                                                    {{{date('h:i A', $event->start_time)}}} - {{{date('h:i A', $event->end_time)}}}
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td><b>Room</b></td>
                                                 <td>
-                                                    Ammos
+                                                    {{{$room->name}}}
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td><b>Type</b></td>
                                                 <td>
-                                                    Sweet16
+                                                    {{{$event->type}}}
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td><b>Guests</b></td>
                                                 <td>
-                                                    80 adults, 20 kids (not confirmed)
+                                                    {{{$event->guests_adults}}} adults, {{{$event->guests_kids}}} kid<?php if ($event->guests_kids != 1) echo 's'; ?> @if ($event->confirmed == 1) (Confirmed) @else (Not Confirmed) @endif
                                                 </td>
                                             </tr>
                                         </table>    
@@ -231,64 +185,68 @@ Event Name
 									</button>
 									<ul class="dropdown-menu pull-right">
 										<li>
-											<a href="#">Log a payment</a>
+											<a data-toggle="modal" data-href="#logPayment" href="#logPayment">Log a payment</a>
 										</li>
-										<li>
+										<?php /*<li>
 											<a href="#">Change credit card</a>
-										</li>
+										</li> */ ?>
 									</ul>
 									</div>
                                     <div class="panel-heading">
                                         <strong>Payment Info</strong>
 									</div>
                                     <div class="panel-body" style="padding:15px 0px 55px 22px;">
-                                        <table class="table table-bordered table-striped" id="users">
-                                            <tr>
-                                                <td><b>Card on file</b></td>
+                                        <table class="table table-bordered table-striped">
+                                          <tr>
+                                                <td><b>Total Price</b></td>
                                                 <td>
-                                                    <a href="#" data-pk="1" class="editable" data-title="Edit User Name">Yes</a>
+                                                    ${{{number_format($event->total_price, 2)}}}
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td><b>Card Type</b></td>
+                                                <td><b>Due By</b></td>
                                                 <td>
-                                                    <a href="#" data-pk="1" class="editable" data-title="Edit E-mail">Visa</a>
+                                                    {{{date('m/d/Y', $event->due_by)}}}
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td><b>Card Number</b></td>
+                                                <td><b>Deposit Amount</b></td>
                                                 <td>
-                                                    <a href="#" data-pk="1" class="editable" data-title="Edit Phone Number">** 332</a>
+                                                    ${{{number_format($event->deposit, 2)}}}
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td><b>Deposit</b></td>
+                                                <td><b>Balance Paid</b></td>
                                                 <td>
-                                                    <a href="#" data-pk="1" class="editable" data-title="Edit Address">$500</a>
+                                                    ${{{number_format($event->balance_paid, 2)}}}
                                                 </td>
                                             </tr>
-                                            <tr>
+                                           <tr>
+                                                <td><b>Remaining Balance</b></td>
+                                                <td>
+                                                    ${{{number_format($event->total_price - $event->balance_paid, 2)}}}
+                                                </td>
+                                            </tr>
+                                            <?php /*<tr>
                                                 <td><b>Balance</b></td>
                                                 <td>
                                                     <a href="#" data-pk="1" class="editable" data-title="Edit Address">$9758.45</a>
-                                                    <div style="margin-right:22px;" class="progress">
+                                                    <div style="margin: 10px 22px 0 0;" class="progress">
                                                         <div class="progress-bar progress-bar-primary progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 45%">
                                                           <span>45% Complete</span>
                                                         </div>
                                                     </div>
                                                 </td>
-                                            </tr>
+                                            </tr> */ ?>
                                         </table>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-		
-
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-6">
-                            <div class="panel panel-success">
+                            <div id="event-detail-order-summary" class="panel panel-success">
 								<div class="btn-group pull-right">
 									<button class="btn dropdown-toggle btn-success" data-toggle="dropdown">
 										<i class="livicon" data-name="gear" data-size="20" data-loop="true" data-c="#fff" data-hc="#fff"></i>
@@ -298,6 +256,7 @@ Event Name
 										<li>
 											<a data-toggle="modal" data-href="#editSummary" href="#editSummary">Edit</a>
 										</li>
+                                        <?php /*
 										<li>
 											<a href="#">Print</a>
 										</li>
@@ -307,6 +266,7 @@ Event Name
 										<li>
 											<a href="#">Email Invoice to Client</a>
 										</li>
+                                        */ ?>
 									</ul>
 								</div>
                                 <div class="panel-heading">
@@ -332,33 +292,168 @@ Event Name
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td><b>Food</b><br>Buffet Menu<br>&nbsp;&nbsp;&nbsp;Calamari<br>&nbsp;&nbsp;&nbsp;Filet Mignon<br>&nbsp;&nbsp;&nbsp;Roasted Leg of Lamb</td>
+                                                    <?php /*<td><b>Food</b><br>Buffet Menu<br>&nbsp;&nbsp;&nbsp;Calamari<br>&nbsp;&nbsp;&nbsp;Filet Mignon<br>&nbsp;&nbsp;&nbsp;Roasted Leg of Lamb</td>
                                                     <td class="text-center"><br><br>$3.50<br>$8.00<br>$8.00</td>
                                                     <td class="text-center"><br>80</td>
-                                                    <td class="text-right"></td>
-                                                </tr>
+                                                    <td class="text-right"></td>*/ ?>
                                                 <tr>
-                                                    <td><b>Drink</b><br>Premium Open Bar</td>
-                                                    <td class="text-center"></td>
-                                                    <td class="text-center">80</td>
-                                                    <td class="text-right"></td>
+                                                    <?php
+                                                    if (isset($event->food_option))
+                                                    {
+                                                        $item_str = '';
+                                                        $price_str = '';
+                                                        $amt_str = '';
+
+                                                        $food_option = Menu::find($event->food_option);
+                                                        $item_str = $food_option->name;
+                                                        $amt_str = (isset($event->food_option_kids) ? $event->guests_adults : $event->guests_adults + $event->guests_kids);
+
+                                                        $food_option_extras = unserialize($event->food_option_extras);
+                                                        if (is_array($food_option_extras))
+                                                        {
+                                                            foreach ($food_option_extras as $extra)
+                                                            {
+                                                                $item_str .= '<br />&nbsp;&nbsp;&nbsp;&nbsp;' . $extra['name'];
+                                                                $price_str .= '<br />$' . $extra['price'] . '/pp';
+                                                                $amt_str .= '<br />';
+                                                            }
+                                                        }
+
+                                                        if (isset($event->food_option_kids))
+                                                        {
+                                                            $food_option = Menu::find($event->food_option_kids);
+                                                            $item_str .= '<br />' . $food_option->name . ' (Kids)';
+                                                            $amt_str .= '<br />' . (isset($event->food_option_kids) ? $event->guests_adults : $event->guests_adults + $event->guests_kids);
+                                                            $price_str .= '<br />';
+
+                                                            $food_option_extras = unserialize($event->food_option_kids_extras);
+                                                            if (is_array($food_option_extras))
+                                                            {
+                                                                foreach ($food_option_extras as $extra)
+                                                                {
+                                                                    $item_str .= '<br />&nbsp;&nbsp;&nbsp;&nbsp;' . $extra['name'];
+                                                                    $price_str .= '<br />$' . $extra['price'] . '/pp';
+                                                                    $amt_str .= '<br />';
+                                                                }
+                                                            }                                                          
+                                                        }
+                                                        ?>
+                                                        <td><b>Food</b><br />{{$item_str}}<br><br></td>
+                                                        <td class="text-center"><br />{{$price_str}}</td>
+                                                        <td class="text-center"><br>{{$amt_str}}</td>
+                                                        <td class="text-right"></td>
+                                                    <?php
+                                                     }
+                                                     else
+                                                    {
+                                                         ?>
+                                                        <td><b>Food</b><br>None selected</td>
+                                                        <td class="text-center"></td>
+                                                        <td class="text-center"></td>
+                                                        <td class="text-right"></td>
+                                                        <?php                                                       
+                                                    }
+                                                    ?>
+                                                </tr>
+                                       
+                                                <tr>
+                                                    <?php
+                                                    if (isset($event->drink_option))
+                                                    {
+                                                        $item_str = '';
+                                                        $price_str = '';
+                                                        $amt_str = '';
+
+                                                        $drink_option = Menu::find($event->drink_option);
+                                                        $item_str = $drink_option->name;
+                                                        $amt_str = (isset($event->drink_option_kids) ? $event->guests_adults : $event->guests_adults + $event->guests_kids);
+
+                                                        $drink_option_extras = unserialize($event->drink_option_extras);
+                                                        if (is_array($drink_option_extras))
+                                                        {
+                                                            foreach ($drink_option_extras as $extra)
+                                                            {
+                                                                $item_str .= '<br />&nbsp;&nbsp;&nbsp;&nbsp;' . $extra['name'];
+                                                                $price_str .= '<br />$' . $extra['price'] . '/pp';
+                                                                $amt_str .= '<br />';
+                                                            }
+                                                        }
+
+                                                        if (isset($event->drink_option_kids))
+                                                        {
+                                                            $drink_option = Menu::find($event->drink_option_kids);
+                                                            $item_str .= '<br />' . $drink_option->name . ' (Kids)';
+                                                            $amt_str .= '<br />' . (isset($event->drink_option_kids) ? $event->guests_adults : $event->guests_adults + $event->guests_kids);
+                                                            $price_str .= '<br />';
+
+                                                            $drink_option_extras = unserialize($event->drink_option_kids_extras);
+                                                            if (is_array($drink_option_extras))
+                                                            {
+                                                                foreach ($drink_option_extras as $extra)
+                                                                {
+                                                                    $item_str .= '<br />&nbsp;&nbsp;&nbsp;&nbsp;' . $extra['name'];
+                                                                    $price_str .= '<br />$' . $extra['price'] . '/pp';
+                                                                    $amt_str .= '<br />';
+                                                                }
+                                                            }                                                          
+                                                        }
+                                                        ?>
+                                                        <td><b>Drink</b><br />{{$item_str}}<br><br></td>
+                                                        <td class="text-center"><br />{{$price_str}}</td>
+                                                        <td class="text-center"><br>{{$amt_str}}</td>
+                                                        <td class="text-right"></td>
+                                                    <?php
+                                                     }
+                                                     else
+                                                    {
+                                                         ?>
+                                                        <td><b>Drink</b><br>None selected</td>
+                                                        <td class="text-center"></td>
+                                                        <td class="text-center"></td>
+                                                        <td class="text-right"></td>
+                                                        <?php                                                       
+                                                    }
+                                                    ?>
+                                                </tr>
+
+                                                <tr>
+                                                    <?php
+                                                    $chosen_addons = unserialize($event->addons);
+                                                    if (is_array($chosen_addons) && count($chosen_addons) > 0)
+                                                    {
+                                                        ?>
+                                                        <td><b>Addons</b><br>@foreach ($chosen_addons as $addon) {{{$addon['name']}}}<br> @endforeach<br></td>
+                                                        <td class="text-center"><br>@foreach ($chosen_addons as $addon) ${{{$addon['price']}}}<br> @endforeach<br></td>
+                                                        <td class="text-center"></td>
+                                                        <td class="text-right"></td>
+                                                        <?php
+                                                    }
+                                                     else
+                                                    {
+                                                         ?>
+                                                        <td><b>Addons</b><br>None selected</td>
+                                                        <td class="text-center"></td>
+                                                        <td class="text-center"></td>
+                                                        <td class="text-right"></td>
+                                                        <?php                                                       
+                                                    }
+                                                    ?>
                                                 </tr>
                                                 <tr>
                                                     <td class="highrow"></td>
                                                     <td class="highrow"></td>
                                                     <td class="highrow text-center">
-                                                        <strong>Price per person</strong>
+                                                        <strong>Price Per Person</strong>
                                                     </td>
-                                                    <td class="highrow text-right">$99.50</td>
+                                                    <td class="highrow text-right">${{{number_format($event->price_per_person, 2)}}}</td>
                                                 </tr>
 												<tr>
                                                     <td class="highrow"></td>
                                                     <td class="highrow"></td>
                                                     <td class="highrow text-center">
-                                                        <strong>Discount (10%)</strong>
+                                                        <strong>Discount ({{{$event->discount_percent*100}}}%)</strong>
                                                     </td>
-                                                    <td class="highrow text-right">$9.99</td>
+                                                    <td class="highrow text-right">${{{number_format($event->discount, 2)}}}</td>
                                                 </tr>
                                                 <tr>
                                                     <td class="emptyrow"></td>
@@ -366,7 +461,7 @@ Event Name
                                                     <td class="emptyrow text-center">
                                                         <strong>Tax</strong>
                                                     </td>
-                                                    <td class="emptyrow text-right">$706.45</td>
+                                                    <td class="emptyrow text-right">${{{number_format($event->tax, 2)}}}</td>
                                                 </tr>
                                                 <tr>
                                                     <td class="emptyrow"></td>
@@ -374,7 +469,7 @@ Event Name
                                                     <td class="emptyrow text-center">
                                                         <strong>Gratuity</strong>
                                                     </td>
-                                                    <td class="emptyrow text-right">$1592.00</td>
+                                                    <td class="emptyrow text-right">${{{number_format($event->gratuity, 2)}}}</td>
                                                 </tr>
                                                 <tr>
                                                     <td class="emptyrow">
@@ -384,214 +479,63 @@ Event Name
                                                     <td class="emptyrow text-center">
                                                     <strong>Total</strong>
                                                 </td>
-                                                <td class="emptyrow text-right">$10,258.45</td>
+                                                <td class="emptyrow text-right">${{{number_format($event->total_price, 2)}}}</td>
                                             </tr>
                                         </tbody>
                                     </table>
-										<strong>Notes</strong><br>None
+										<strong>Notes</strong><br>@if (strlen($event->notes) > 0) {{{$event->notes}}} @else None @endif
                                 </div>
                             </div>
                         </div>
                     </div>
 						
-					        <!-- To do list -->
-        <div class="col-lg-6 col-md-6 col-sm-6">
-            <div class="panel panel-success todolist">
-                <div class="panel-heading border-light">
-                    <strong>Event Notes</strong>
-                </div>
-                <div class="panel-body nopadmar">
-                    <form class="row">
-                        <div class="todolist_list showactions">
-                            <div class="col-md-8 col-sm-8 col-xs-8 nopadmar custom_textbox1">
-                                <div class="todoitemcheck checkbox-custom">
-                                   
-                                </div>
-                                <div class="todotext todoitem">Meeting with CEO</div>
-                            </div>
-                            <div class="col-md-4  col-sm-4 col-xs-4  pull-right showbtns todoitembtns">
-                                <a href="#" class="todoedit">
-                                    <span class="glyphicon glyphicon-pencil"></span>
-                                </a>
-                                |
-                                <a href="#" class="tododelete redcolor">
-                                    <span class="glyphicon glyphicon-trash"></span>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="todolist_list showactions">
-                            <div class="col-md-8 col-sm-8 col-xs-8 nopadmar custom_textbox1">
-                                <div class="todoitemcheck">
-                                    
-                                </div>
-                                <div class="todotext todoitem">Team Out</div>
-                            </div>
-                            <div class="col-md-4  col-sm-4 col-xs-4  pull-right showbtns todoitembtns">
-                                <a href="#" class="todoedit">
-                                    <span class="glyphicon glyphicon-pencil"></span>
-                                </a>
-                                |
-                                <a href="#" class="tododelete redcolor">
-                                    <span class="glyphicon glyphicon-trash"></span>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="todolist_list showactions">
-                            <div class="col-md-8 col-sm-8 col-xs-8 nopadmar custom_textbox1">
-                                <div class="todoitemcheck">
-                                    
-                                </div>
-                                <div class="todotext todoitem">Review On Sales</div>
-                            </div>
-                            <div class="col-md-4  col-sm-4 col-xs-4  pull-right showbtns todoitembtns">
-                                <a href="#" class="todoedit">
-                                    <span class="glyphicon glyphicon-pencil"></span>
-                                </a>
-                                |
-                                <a href="#" class="tododelete redcolor">
-                                    <span class="glyphicon glyphicon-trash"></span>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="todolist_list showactions">
-                            <div class="col-md-8 col-sm-8 col-xs-8 nopadmar custom_textbox1">
-                                <div class="todoitemcheck">
-                                    
-                                </div>
-                                <div class="todotext todoitem">Meeting with Client</div>
-                            </div>
-                            <div class="col-md-4  col-sm-4 col-xs-4  pull-right showbtns todoitembtns">
-                                <a href="#" class="todoedit">
-                                    <span class="glyphicon glyphicon-pencil"></span>
-                                </a>
-                                |
-                                <a href="#" class="tododelete redcolor">
-                                    <span class="glyphicon glyphicon-trash"></span>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="todolist_list showactions">
-                            <div class="col-md-8 col-sm-8 col-xs-8 nopadmar custom_textbox1">
-                                <div class="todoitemcheck">
-                                    
-                                </div>
-                                <div class="todotext todoitem">Analysis on Views</div>
-                            </div>
-                            <div class="col-md-4  col-sm-4 col-xs-4  pull-right showbtns todoitembtns">
-                                <a href="#" class="todoedit">
-                                    <span class="glyphicon glyphicon-pencil"></span>
-                                </a>
-                                |
-                                <a href="#" class="tododelete redcolor">
-                                    <span class="glyphicon glyphicon-trash"></span>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="todolist_list showactions">
-                            <div class="col-md-8 col-sm-8 col-xs-8 nopadmar custom_textbox1">
-                                <div class="todoitemcheck">
-                                    
-                                </div>
-                                <div class="todotext todoitem">Seminar on Market</div>
-                            </div>
-                            <div class="col-md-4  col-sm-4 col-xs-4  pull-right showbtns todoitembtns">
-                                <a href="#" class="todoedit">
-                                    <span class="glyphicon glyphicon-pencil"></span>
-                                </a>
-                                |
-                                <a href="#" class="tododelete redcolor">
-                                    <span class="glyphicon glyphicon-trash"></span>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="todolist_list showactions">
-                            <div class="col-md-8 col-sm-8 col-xs-8 nopadmar custom_textbox1">
-                                <div class="todoitemcheck">
-                                    
-                                </div>
-                                <div class="todotext todoitem">Business Review</div>
-                            </div>
-                            <div class="col-md-4  col-sm-4 col-xs-4  pull-right showbtns todoitembtns">
-                                <a href="#" class="todoedit">
-                                    <span class="glyphicon glyphicon-pencil"></span>
-                                </a>
-                                |
-                                <a href="#" class="tododelete redcolor">
-                                    <span class="glyphicon glyphicon-trash"></span>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="todolist_list showactions">
-                            <div class="col-md-8 col-sm-8 col-xs-8 nopadmar custom_textbox1">
-                                <div class="todoitemcheck">
-                                    
-                                </div>
-                                <div class="todotext todoitem">Purchase Equipment</div>
-                            </div>
-                            <div class="col-md-4  col-sm-4 col-xs-4  pull-right showbtns todoitembtns">
-                                <a href="#" class="todoedit">
-                                    <span class="glyphicon glyphicon-pencil"></span>
-                                </a>
-                                |
-                                <a href="#" class="tododelete redcolor">
-                                    <span class="glyphicon glyphicon-trash"></span>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="todolist_list showactions">
-                            <div class="col-md-8 col-sm-8 col-xs-8 nopadmar custom_textbox1">
-                                <div class="todoitemcheck">
-                                    
-                                </div>
-                                <div class="todotext todoitem">Meeting with CEO</div>
-                            </div>
-                            <div class="col-md-4  col-sm-4 col-xs-4  pull-right showbtns todoitembtns">
-                                <a href="#" class="todoedit">
-                                    <span class="glyphicon glyphicon-pencil"></span>
-                                </a>
-                                |
-                                <a href="#" class="tododelete redcolor">
-                                    <span class="glyphicon glyphicon-trash"></span>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="todolist_list showactions">
-                            <div class="col-md-8 col-sm-8 col-xs-8 nopadmar custom_textbox1">
-                                <div class="todoitemcheck">
-                                    
-                                </div>
-                                <div class="todotext todoitem">Takeover Leads</div>
-                            </div>
-                            <div class="col-md-4  col-sm-4 col-xs-4  pull-right showbtns todoitembtns">
-                                <a href="#" class="todoedit">
-                                    <span class="glyphicon glyphicon-pencil"></span>
-                                </a>
-                                |
-                                <a href="#" class="tododelete redcolor">
-                                    <span class="glyphicon glyphicon-trash"></span>
-                                </a>
-                            </div>
-                        </div>
-                    </form>
-                    <div class="todolist_list adds">
-                        <form role="form" id="main_input_box" class="form-inline">
-                            <div class="form-group">
-                                <label class="sr-only" for="AddTask">Add Note</label>
-                                <input id="custom_textbox" name="Item" type="text" required placeholder="Add note item here" class="form-control" />
-                            </div>
-                            <input type="submit" value="Add Note" class="btn btn-primary add_button" />
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-						
-						
-						
-						
-						
+					<!-- To do list -->
+					<div class="col-lg-6 col-md-6 col-sm-6">
+						<div class="panel panel-success todolist">
+							<div class="panel-heading border-light">
+								<strong>Event Notes</strong>
+							</div>
+							<div class="panel-body nopadmar">
+								<form id="event-notes-form">
+									<div id="event-notes" class="row list_of_items">
+                                        @foreach ($event_notes as $note)
+										<div class="todolist_list showactions" data-id="{{{$note->id}}}">
+                                           
+											<div class="col-md-8 col-sm-8 col-xs-8 nopadmar custom_textbox1">
+												<div class="todotext todoitem">{{{$note->note}}}</div>
+											</div>
+                                        
+											<div class="col-md-4  col-sm-4 col-xs-4  pull-right showbtns todoitembtns">
+												<a href="#" class="event-notes-edit">
+													<span class="glyphicon glyphicon-pencil"></span>
+												</a>
+												<a href="#" class="event-notes-edit-submit" style="display:none;">
+													<span class="glyphicon glyphicon-save"></span>
+												</a>
+												|
+												<a href="#" class="event-notes-delete redcolor">
+													<span class="glyphicon glyphicon-trash"></span>
+												</a>
+											</div>
+										</div>
+                                        @endforeach
+									</div>
+									<div class="todolist_list adds">
+										<div class="form-inline">
+											<div class="form-group">
+												<label class="sr-only" for="event-notes-add">Add Note</label>
+												<input id="note-add-text" type="text" required placeholder="Add event note here" class="form-control" />
+											</div>
+											<input type="submit" value="Add Note" class="btn btn-primary add_button" />
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>		
 			</div>
 			<div class="row">
+             <?php /*
         <div class="col-md-12">
             <div class="panel panel-success">
 				<div class="btn-group pull-right">
@@ -608,6 +552,7 @@ Event Name
 										</li>
 									</ul>
 								</div>
+           
                 <div class="panel-heading">
 					<strong>Chat</strong>
                 </div>
@@ -671,6 +616,7 @@ Event Name
                         </li>
                     </ul>
                 </div>
+            
                 <div class="panel-footer">
                     <div class="input-group">
                         <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here..." />
@@ -682,23 +628,81 @@ Event Name
                 </div>
             </div>
         </div>
-		
+        */ ?>
+	</div>
+</section>
+<div class="modal modal-center modal-small" id="logPayment" role="dialog" aria-labelledby="logPayment_title" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title" aria-labelledby="logPayment_title">Log a Payment</h4>
+			</div>
+			<div class="modal-body">
+				<div class="form-group" style="position: static;">
+					<p class="help-block">Enter payment amount</p>
+					<div class="form-group input-group">
+						<span class="input-group-addon">$</span>
+						<input id="lp-amount" type="text" class="form-control">
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<a id="event-detail-log-payment" href="#" type="button" class="btn btn-success">Save</a>
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+			</div>
+		</div>
+	</div>
+</div>
 
-						
-						
-						
-                        </div>
-                </section>
-	
-	
-	
-	<!--- order summary model -->
-    <div class="modal fade in" id="editSummary" tabindex="-1" role="dialog" aria-hidden="false" style="display:none;">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <div class="row">
-                        <!--basic form starts-->
+<div class="modal modal-center modal-small" id="cancelEvent" role="dialog" aria-labelledby="cancelEvent_title" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" aria-labelledby="cancelEvent_title">Cancel Event</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group" style="position: static;">
+                    <p class="help-block">Are you sure you want to cancel the event?</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a id="event-cancel" href="#" type="button" class="btn btn-danger" onclick='window.location="/admin/events/0/?cancel={{{$event->id}}}";'>Yes</a>
+                <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal modal-center modal-small" id="confirmEvent" role="dialog" aria-labelledby="confirmEvent_title" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" aria-labelledby="confirmEvent_title">Confirm Event</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group" style="position: static;">
+                    <p class="help-block">Are you sure you want to confirm the event?</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a id="event-confirm" href="#" type="button" class="btn btn-success" onclick='window.location="/admin/event/{{{$event->id}}}?confirm={{{$event->id}}}";'>Yes</a>
+                <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--- order summary model -->
+<div class="modal fade in" id="editSummary" tabindex="-1" role="dialog" aria-hidden="false" style="display:none;">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-body">
+				<div class="row">
+					<!--basic form starts-->
+					<form id="event-detail-edit-summary">
                         <div class="panel panel-success" id="hidepanel1">
                             <div class="panel-heading">
                                 <h3 class="panel-title">
@@ -707,121 +711,122 @@ Event Name
                                 </h3>
                             </div>
                             <div class="panel-body border">
-                                <form class="form-horizontal form-bordered" action="#" method="post">
+                                <div class="form-horizontal form-bordered">
                                     <fieldset>
                                         <!-- Name input-->
                                         <div class="form-group">
-                                            <label class="col-md-3 control-label" for="name">
+                                            <label class="col-md-3 control-label">
                                                 Food package
                                             </label>
                                             <div class="col-md-offset-3">
-                                            <select id="e1" class="form-control select2">
-                                                    <option value="Room1">Select a package</option>
-                                                    <option value="Room1">Passing Menu</option>
-                                                    <option value="Room2">Buffet Menu</option>
-													<option value="Room2">Standard Menu</option>
-                                            </select>
-											
+												<select id="es-food" class="form-control select2 consume-parent">
+													<option value="">Select a package</option>
+                                                    @foreach ($food_options as $option))
+													<option value="{{{$option->id}}}" @if ($event->food_option == $option->id) selected @endif>{{{$option->name}}}</option>
+                                                    @endforeach
+												</select><br>
+												<input type="hidden" id="es-food-extras" class="consume-extras form-control" value="{{{$food_extra_string}}}">
 											</div>
-											
-												<div class="col-md-offset-3">
+											<div class="col-md-offset-3">
 												<div class="span4">
-													<div class="form-control display-no">
-													<select id="e1" class="form-control select2">
-                                                    <option value="Room1">Select a package</option>
-                                                    <option value="Room1">Passing Menu</option>
-                                                    <option value="Room2">Buffet Menu</option>
-													<option value="Room2">Standard Menu</option>
-													</select>
+													<div id="es-div-foodkids" @if ($event->food_option_kids == NULL) style='display: none;' @endif id='es-foodkids-display'>
+														<select id="es-foodkids" class="form-control select2 consume-parent">
+														<option value="">Select a package</option>
+                                                        @foreach ($food_options as $option))
+                                                        <option value="{{{$option->id}}}" @if ($event->food_option_kids == $option->id) selected @endif>{{{$option->name}}}</option>
+                                                        @endforeach
+														</select><br>
+														<input type="hidden" id="es-foodkids-extras" class="consume-extras form-control" value="{{{$food_extra_kids_string}}}"><br>
 													</div>
-													<a onclick="$(this).closest('.span4').find('div').toggle(); $(this).text(this.text=='Different package for kids?'?'Same package as adults':'Different package for kids?');return false;" href="#">Different package for kids?</a>
-                                        		</div>
+													<a onclick="$('#es-div-foodkids').toggle(); $('#es-foodkids').val(''); $('#es-foodkids-extras').select2('data', null); $(this).text(this.text=='Different package for kids?'?'Same package as adults':'Different package for kids?'); return false;" href="#">@if ($event->food_option_kids == NULL)Different package for kids?@else Same package as adults?@endif</a>
 												</div>
-                                          
-											
+											</div>
                                         </div>
                                          <!--select2 starts-->
                                         <div class="form-group">
                                             <label class="col-md-3 control-label" for="name">
                                                 Drink package
                                             </label>
-                                            <div class="col-md-9">
-                                            <select id="e1" class="form-control select2">
-                                                    <option value="Room1">Select a package</option>
-                                                    <option value="Room1">Cash Bar</option>
-                                                    <option value="Room2">Premium Open Bar</option>
-                                            </select>
-												
+                                            <div class="col-md-offset-3">
+												<select id="es-drink" class="form-control select2 consume-parent">
+													<option value="">Select a package</option>
+                                                    @foreach ($drink_options as $option))
+                                                    <option value="{{{$option->id}}}" @if ($event->drink_option == $option->id) selected @endif>{{{$option->name}}}</option>
+                                                    @endforeach
+												</select><br>
+												<input type="hidden" id="es-drink-extras" class="consume-extras form-control" value="{{{$drink_extra_string}}}">
                                             </div>
 											<div class="col-md-offset-3">
 												<div class="span5">
-													<div class="form-control display-no">
-													<select id="e1" class="form-control select2">
-                                                    <option value="Room1">Select a package</option>
-                                                    <option value="Room1">Passing Menu</option>
-                                                    <option value="Room2">Buffet Menu</option>
-													<option value="Room2">Standard Menu</option>
-													</select>
+													<div id="es-div-drinkkids" @if ($event->drink_option_kids == NULL) style='display: none' @endif id='es-drinkkids-display'>
+														<select id="es-drinkkids" class="form-control select2 consume-parent">
+															<option value="">Select a package</option>
+                                                            @foreach ($drink_options as $option))
+                                                            <option value="{{{$option->id}}}" @if ($event->drink_option_kids == $option->id) selected @endif>{{{$option->name}}}</option>
+                                                            @endforeach
+														</select><br>
+														<input type="hidden" id="es-drinkkids-extras" class="consume-extras form-control" value="{{{$drink_extra_kids_string}}}"><br>
 													</div>
-													<a onclick="$(this).closest('.span5').find('div').toggle(); $(this).text(this.text=='Different package for kids?'?'Same package as adults':'Different package for kids?');return false;" href="#">Different package for kids?</a>
+													<a onclick="$('#es-div-drinkkids').toggle(); $('#es-drinkkids').val(''); $('#es-drinkkids-extras').select2('data', null); $(this).text(this.text=='Different package for kids?'?'Same package as adults':'Different package for kids?');return false;" href="#">@if ($event->drink_option_kids == NULL)Different package for kids?@else Same package as adults?@endif</a>
                                         		</div>
-												</div>
+											</div>
                                         </div>
-						
-                                        <!-- Name input-->
 										<div class="form-group">
-                                            <label class="col-md-3 control-label" for="name">
+                                            <label class="col-md-3 control-label">
                                                 Add-Ons
                                             </label>
                                             <div class="col-md-9">
-                                            
+                                            <?php
+                                                $chosen_addons = unserialize($event->addons);
+                                                $chosen_addon_ids = array();
+                                                if (is_array($chosen_addons) && count($chosen_addons) > 0)
+                                                    foreach ($chosen_addons as $addon)
+                                                        $chosen_addon_ids[] = $addon['id'];
+                                            ?>
+                                                @foreach ($addons as $addon)
 												<label>
-													<input type="checkbox" class="flat-red" />
-												</label>Extra hour<br>
-												<label>
-													<input type="checkbox" class="flat-red" />
-												</label>Vianese Table
-												
-											
+													<input type="checkbox" class="flat-red es-addons" value="{{{$addon->id}}}}" @if (is_array($chosen_addons) && in_array($addon->id, $chosen_addon_ids)) checked="1" @endif/>
+												</label>{{{$addon->name}}}<br>
+                                                @endforeach
                                             </div>
                                         </div>
-                                        <!-- Name input-->
                                         <div class="form-group">
                                             <label class="col-md-3 control-label" for="name">Discount</label>
-                                            <input id="demo1" type="text" value="4" name="demo1" class="form-control"></div>
-                                        <!-- Message body -->
+                                            <div class="col-md-9">
+												<input id="es-discount" type="text" value="{{{$event->discount_percent*100}}}" class="form-control ts-perc">
+											</div>
+                                        </div>
                                         <div class="form-group">
                                             <label class="col-md-3 control-label" for="message">Notes</label>
                                             <div class="col-md-9">
-                                                <textarea class="form-control" id="message" name="message" placeholder="Enter your notes here..." rows="5"></textarea>
+												<textarea id="es-comments" rows="3" class="form-control" placeholder=" Enter your notes here...">@if (strlen($event->notes) > 0){{{$event->notes}}}@endif</textarea>
                                             </div>
                                         </div>
                                     </fieldset>
-                                </form>
+                                </div>
                             </div>
+							<div class="form-group" style="margin:0;">
+								<div class="col-md-12 text-right" style="margin-top:20px;">
+									<button type="submit" class="btn btn-responsive btn-primary">Save Changes</button>&nbsp;&nbsp;&nbsp;
+									<button type="button" class="btn btn-danger pull-right" data-dismiss="modal">Cancel</button>
+								</div>
+							</div>
                         </div>
-                        <!-- Form actions -->
-                <div class="form-group">
-                    <div class="col-md-12 text-right">
-                        <button type="submit" class="btn btn-responsive btn-primary pull-right">Save changes</button>
-                    </div>
-                </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- END order summary modal-->
-	
-	
-	<!--- edit event summary  model -->
-    <div class="modal fade in" id="editEvent" tabindex="-1" role="dialog" aria-hidden="false" style="display:none;">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <div class="row">
-                        <!--basic form starts-->
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- END order summary modal-->
+<!--- edit event summary  model -->
+<div class="modal fade in" id="editEvent" tabindex="-1" role="dialog" aria-hidden="false" style="display:none;">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-body">
+				<div class="row">
+					<!--basic form starts-->
+					<form id="event-detail-edit-event">
                         <div class="panel panel-success" id="hidepanel1">
                             <div class="panel-heading">
                                 <h3 class="panel-title">
@@ -830,41 +835,41 @@ Event Name
                                 </h3>
                             </div>
                             <div class="panel-body border">
-                                <form class="form-horizontal form-bordered" action="#" method="post">
+                                <div class="form-horizontal form-bordered">
                                     <fieldset>
-                                         <!--select2 starts-->
-                                        <div class="form-group striped-col">
-                                            <label class="col-md-3 control-label" for="name">
-                                                Room
-                                            </label>
-                                            <div class="col-md-9">
-                                            <select id="e1" class="form-control select2">
-                                                    <option value="Room1">Select a Room</option>
-                                                    <option value="Room1">Room1</option>
-                                                    <option value="Room2">Room2</option>
-                                            </select>
-                                            </div>
-                                        </div>
 										<!--select2 starts-->
                                         <div class="form-group">
-                                            <label class="col-md-3 control-label" for="name">
+                                            <label class="col-md-3 control-label" for="ee-type">
                                                 Type
                                             </label>
                                             <div class="col-md-9">
-                                            <select id="e1" class="form-control select2">
-                                                    <option value="Room1">Select an event type</option>
-                                                    <option value="Room1">Sweet 16</option>
-                                                    <option value="Room2">Corporate Event</option>
-                                            </select>
+												<select id="ee-type" class="form-control select2">
+													<option value="">Select an event type</option>
+													<option value="Sweet 16" @if ($event->type == 'Sweet 16') selected="1" @endif>Sweet 16</option>
+													<option value="Corporate Event" @if ($event->type == 'Corporate Event') selected="1" @endif>Corporate Event</option>
+												</select>
                                             </div>
                                         </div>
-                                        <!-- Name input-->
+                                         <!--select2 starts-->
                                         <div class="form-group striped-col">
-                                            <label class="col-md-3 control-label" for="name">
+                                            <label class="col-md-3 control-label" for="ee-room">
+                                                Room
+                                            </label>
+                                            <div class="col-md-9">
+												<select id="ee-room" class="form-control select2">
+													<option value="">Select a Room</option>
+                                                    @foreach ($rooms as $room)
+                                                    <option value="{{{$room->id}}}" @if ($event->room_id == $room->id) selected="1" @endif>{{{$room->name}}}</option>
+                                                    @endforeach 
+												</select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group striped-col">
+                                            <label class="col-md-3 control-label" for="ee-datetime">
                                                 Date and Time
                                             </label>
-                                            <div class="input-group date form_datetime5 col-md-9 pull-right" data-date="2012-12-21T15:25:00Z" data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
-                                                <input type="text" value="" class="form-control" readonly>
+                                            <div class="input-group date form_datetime5 col-md-9 pull-right" data-date="<?php echo date('Y-m-d', $event->start_time); ?>T00:00:00Z" data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
+                                                <input id="ee-datetime" type="text" value="<?php echo date(/*'m/d/Y H:i:s'*/'d F Y - h:i A', $event->start_time); ?>" class="form-control">
                                                 <span class="input-group-addon">
                                                     <span class="glyphicon glyphicon-remove"></span>
                                                 </span>
@@ -873,185 +878,115 @@ Event Name
                                                 </span>
                                             </div>
                                         </div>
-                                        <!-- Name input-->
                                         <div class="form-group">
-                                            <label class="col-md-3 control-label" for="name">Event Duration</label>
-                                            <input id="demo1" type="text" value="4" name="demo1" class="form-control"></div>
-                                        <!-- Name input-->
-                                        <div class="form-group striped-col">
-                                            <label class="col-md-3 control-label" for="name">Guests</label>
-
+                                            <label class="col-md-3 control-label" for="ee-duration">Event Duration</label>
                                             <div class="col-md-offset-3">
-                                            <input id="adults" type="text" value="50" name="adults" class="form-control">
-                                            </div>
-                                            <div class="col-md-offset-3">
-                                            <input id="kids" type="text" value="50" name="kids" class="form-control">
-                                            </div> 
+												<input id="ee-duration" type="text" value="4" class="form-control ts-dur">
+											</div>
                                         </div>
-                                       
-                                        <!-- Message body -->
-                                        <div class="form-group">
-                                            <label class="col-md-3 control-label" for="message">Notes</label>
-                                            <div class="col-md-9">
-                                                <textarea class="form-control" id="message" name="message" placeholder="Enter your notes here..." rows="5"></textarea>
+                                        <div class="form-group striped-col">
+                                            <label class="col-md-3 control-label">Guests</label>
+                                            <div class="col-md-offset-3">
+												<input id="ee-adults" type="text" value="50" class="form-control ts-adults">
                                             </div>
+                                            <div class="col-md-offset-3">
+												<input id="ee-kids" type="text" value="50" class="form-control ts-kids">
+											</div> 
                                         </div>
                                     </fieldset>
-                                </form>
-                            </div>
-                        </div>
-                        <!-- Form actions -->
-                <div class="form-group">
-                    <div class="col-md-12 text-right">
-                        <button type="submit" class="btn btn-responsive btn-primary pull-right">Save Changes</button>
-                    </div>
-                </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- END event summary modal-->
-	
-		<!--- client details model -->
-                            <div class="modal fade in" id="editClientDetails" tabindex="-1" role="dialog" aria-hidden="false" style="display:none;">
-                                <div class="modal-dialog modal-lg">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                            <h4 class="modal-title">Edit Client Info</h4>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="row">
-                                                <div class="panel panel-success">
-                                                    <div class="panel-heading">
-                                                        <h4 class="panel-title">
-                                                            <i class="livicon" data-name="user" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                                                            John Doe
-                                                        </h4>
-                                                    </div>
-                                                    <div class="panel-body">
-                                                        <div class="table-responsive">
-                                                            <table id="user" class="table table-bordered table-striped" style="clear:both">
-                                                                <tbody>
-                                                                    <tr>
-                                                                        <td>First Name</td>
-                                                                        <td>
-                                                                            <a href="#" id="firstname" data-type="text" data-pk="1" data-title="Enter first name" class="editable editable-click" data-original-title="" title="">John</a>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>Last Name</td>
-                                                                        <td>
-                                                                            <a href="#" id="lastname" data-type="text" data-pk="1" data-title="Enter last name" class="editable editable-click" data-original-title="" title="">Doe</a>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>Primary Number</td>
-                                                                        <td>
-                                                                            <a href="#" id="primary" data-type="text" data-pk="1" data-title="Enter primary number" class="editable editable-click" data-original-title="" title="">(718) 223 2321</a>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>Secondary Number</td>
-                                                                        <td>
-                                                                            <a href="#" id="secondary" data-type="text" data-pk="1" data-title="Enter secondary number" class="editable editable-click" data-original-title="" title=""></a>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>Fax Number</td>
-                                                                        <td>
-                                                                            <a href="#" id="fax" data-type="text" data-pk="1" data-title="Enter fax number" class="editable editable-click" data-original-title="" title=""></a>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>Email</td>
-                                                                        <td>
-                                                                            <a href="#" id="emailaddress" data-type="text" data-pk="1" data-title="Enter email address" class="editable editable-click" data-original-title="" title="">johndoe@gmail.com</a>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>Address</td>
-                                                                        <td>
-                                                                            <a id="address" data-type="address" data-pk="1" data-title="Please, fill address" class="editable editable-click" data-original-title="" title=""> <b>Moscow</b>
-                                                                                , Lenina st., bld. 12
-                                                                            </a>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>Notes</td>
-                                                                        <td>
-                                                                            <a href="#" id="comments" data-type="textarea" data-pk="1" data-placeholder="Your comments here..." data-title="Enter comments" class="editable editable-pre-wrapped editable-click">Awesome client!</a>
-                                                                        </td>
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
-               
-    <!-- END client details modal-->
-	
+							<!-- Form actions -->
+							<div class="form-group" style="margin:0;">
+								<div class="col-md-12 text-right" style="margin-top:20px;">
+									<button type="submit" class="btn btn-responsive btn-primary">Save Changes</button>&nbsp;&nbsp;&nbsp;
+									<button type="button" class="btn btn-danger pull-right" data-dismiss="modal">Cancel</button>
+								</div>
+							</div>
+                        </div>
+					</form>
+                </div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- END event summary modal-->
+<!--- client details model -->
+<div class="modal fade in" id="editClientDetails" tabindex="-1" role="dialog" aria-hidden="false" style="display:none;">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				<h4 class="modal-title">Edit Client Info</h4>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<form id="event-detail-edit-client">
+						<div class="panel panel-success">
+							<div class="panel-heading">
+								<h4 class="panel-title">
+									<i class="livicon" data-name="user" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
+									Angela Doe
+								</h4>
+							</div>
+							<div class="panel-body">
+								<div class="table-responsive">
+									<table class="table table-bordered table-striped" style="clear:both;margin-bottom:0;">
+										<tbody>
+											<tr>
+												<td>First Name</td>
+												<td><input id="ed-firstname" type="text" placeholder="Enter first name" class="form-control" value="{{{$client->first_name}}}"></td>
+											</tr>
+											<tr>
+												<td>Last Name</td>
+												<td><input id="ed-lastname" type="text" placeholder="Enter last name" class="form-control" value="{{{$client->last_name}}}"></td>
+											</tr>
+											<tr>
+												<td>Primary Number</td>
+												<td><input id="ed-primary" type="text" placeholder="Enter primary number" class="form-control" value="{{{$client->phone_number}}}"></td>
+											</tr>
+											<tr>
+												<td>Secondary Number</td>
+												<td><input id="ed-secondry" type="text" placeholder="Enter secondary number" class="form-control" value="{{{$client->secondary_phone_number}}}"></td>
+											</tr>
+											<tr>
+												<td>Fax Number</td>
+												<td><input id="ed-fax" type="text" placeholder="Enter fax number" class="form-control" value="{{{$client->fax_number}}}"></td>
+											</tr>
+											<tr>
+												<td>Email</td>
+												<td><input id="ed-emailaddress" type="text" placeholder="Enter email address" class="form-control" value="{{{$client->email}}}"></td>
+											</tr>
+											<tr>
+												<td>Address</td>
+												<td><input id="ed-address" type="text" placeholder="Enter street address" class="form-control" value="{{{$client->address}}}"></td>
+											</tr>
+											<tr>
+												<td>Notes</td>
+												<td><textarea id="ed-notes" placeholder="Your comments here..." class="form-control">{{{$client->notes}}}</textarea></td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+							<div class="form-group" style="margin:0;">
+								<div class="col-md-12 text-right" style="margin-top:20px;">
+									<button type="submit" class="btn btn-responsive btn-primary">Save Changes</button>&nbsp;&nbsp;&nbsp;
+									<button type="button" class="btn btn-danger pull-right" data-dismiss="modal">Cancel</button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- END client details modal-->
 @stop
 
 {{-- page level scripts --}}
 @section('footer_scripts')
-<!-- begining of page level js -->
-<script src="{{ asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}" type="text/javascript"></script>
-<script src="{{ asset('assets/vendors/x-editable/jquery.mockjax.js') }}" type="text/javascript"></script>
-<script src="{{ asset('assets/vendors/x-editable/bootstrap-editable.js') }}" type="text/javascript"></script>
-<script src="{{ asset('assets/vendors/magnifier/imgmagnify.js') }}" type="text/javascript"></script>
-<script src="{{ asset('assets/vendors/iCheck/icheck.js') }}" type="text/javascript"></script>
-<script src="{{ asset('assets/js/pages/user_profile.js') }}" type="text/javascript"></script>
-<!-- end of page level js -->
-<!--  todolist-->
-<script src="{{ asset('assets/js/todolist.js') }}"></script>
-<!-- EASY PIE CHART JS -->
-<script src="{{ asset('assets/vendors/charts/easypiechart.min.js') }}"></script>
-<script src="{{ asset('assets/vendors/charts/jquery.easypiechart.min.js') }}"></script>
-<!--for calendar-->
-<script src="{{ asset('assets/vendors/fullcalendar/fullcalendar.min.js') }}" type="text/javascript"></script>
-<script src="{{ asset('assets/vendors/fullcalendar/calendarcustom.min.js') }}" type="text/javascript"></script>
-<!--   Realtime Server Load  -->
-<script src="{{ asset('assets/vendors/charts/jquery.flot.min.js') }}" type="text/javascript"></script>
-<script src="{{ asset('assets/vendors/charts/jquery.flot.resize.min.js') }}" type="text/javascript"></script>
-<!--Sparkline Chart-->
-<script src="{{ asset('assets/vendors/charts/jquery.sparkline.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/vendors/countUp/countUp.js') }}"></script>
-<!--   maps -->
-<script src="{{ asset('assets/vendors/jvectormap/jquery-jvectormap-1.2.2.min.js') }}"></script>
-<script src="{{ asset('assets/vendors/jvectormap/jquery-jvectormap-world-mill-en.js') }}"></script>
-<script src="{{ asset('assets/js/dashboard.js') }}" type="text/javascript"></script>
-<!-- end of page level js -->
-<script type="text/javascript">
-$(document).ready(function() {
-    var composeHeight = $('#calendar').height() + 21 - $('.adds').height();
-    $('.list_of_items').slimScroll({
-        color: '#A9B6BC',
-        height: composeHeight + 'px',
-        size: '5px'
-    });
-});
-</script>
-<script type="text/javascript" src="{{ asset('assets/vendors/datatables/jquery.dataTables.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/vendors/datatables/dataTables.bootstrap.js') }}"></script>
-<script>
-$(document).ready(function() {
-    $('#table').DataTable();
-});
-</script>
-
-<div class="modal fade" id="delete_confirm" tabindex="-1" role="dialog" aria-labelledby="user_delete_confirm_title" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content"></div>
-  </div>
-</div>
 <script>
 $(function () {
     $('body').on('hidden.bs.modal', '.modal', function () {
@@ -1059,36 +994,4 @@ $(function () {
     });
 });
 </script>
-<script src="{{ asset('assets/vendors/x-editable/jquery.mockjax.js') }}"></script>
-<script src="{{ asset('assets/vendors/x-editable/moment.min.js') }}"></script>
-<script src="{{ asset('assets/vendors/x-editable/select2.js') }}"></script>
-<script>var f = 'bootstrap3';</script>
-<script src="{{ asset('assets/vendors/x-editable/bootstrap-editable.js') }}"></script>
-<script src="{{ asset('assets/vendors/x-editable/typeahead.js') }}"></script>
-<script src="{{ asset('assets/vendors/x-editable/typeaheadjs.js') }}"></script>
-<script src="{{ asset('assets/vendors/x-editable/address.js') }}"></script>
-<script>
-    var c = window.location.href.match(/c=inline/i) ? 'popup' : 'inline';
-    $.fn.editable.defaults.mode = c === 'popup' ? 'popup' : 'inline';
-
-    $(function() {
-        $('#f').val(f);
-        $('#c').val(c);
-
-        $('#frm').submit(function() {
-            var f = $('#f').val();
-            if (f === 'jqueryui') {
-                $(this).attr('action', 'demo-jqueryui.html');
-            } else if (f === 'plain') {
-                $(this).attr('action', 'demo-plain.html');
-            } else if (f === 'bootstrap2') {
-                $(this).attr('action', 'demo.html');
-            } else {
-                $(this).attr('action', 'x-editable');
-            }
-        });
-    });
-</script>
-<script src="{{ asset('assets/vendors/x-editable/demo-mock.js') }}"></script>
-<script src="{{ asset('assets/vendors/x-editable/demo.js') }}"></script>
 @stop

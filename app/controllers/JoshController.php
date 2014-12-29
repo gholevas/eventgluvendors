@@ -62,7 +62,23 @@ class JoshController extends BaseController {
     	if(View::exists('admin/'.$name))
 		{
 			if(Sentry::check())
-				return View::make('admin/'.$name);
+			{
+				$rooms = Room::where('venue_id', Sentry::getUser()->venue_id)->get();
+				$food_options = Menu::where('venue_id', Sentry::getUser()->venue_id)
+										->where('type', 0)
+										->get();
+				$drink_options = Menu::where('venue_id', Sentry::getUser()->venue_id)
+										->where('type', 1)
+										->get();
+				$addons = Addon::where('venue_id', Sentry::getUser()->venue_id)->get();
+				$venue = Venue::find(Sentry::getUser()->venue_id);
+
+				return View::make('admin/'.$name)->with('rooms', $rooms)
+											->with('food_options', $food_options)
+											->with('drink_options', $drink_options)
+											->with('addons', $addons)
+											->with('venue', $venue);
+			}
 			else
 				return Redirect::to('admin/signin')->with('error', 'You must be logged in!');
 		}

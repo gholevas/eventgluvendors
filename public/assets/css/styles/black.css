@@ -10,7 +10,7 @@
     position: absolute;
     right: 0px;
     top: 0px;
-    width: 1393px;
+    width: 100%;
     z-index: 10;
     content: ' ';
     background:  url(../../img/bg-header1.png);
@@ -55,10 +55,11 @@ body > .header {
 /*right side - contins main content*/
 .right-side {
 	margin-left: 250px;
+	margin-top: 50px;
 }
 /*left side - contains sidebar*/
 .left-side {
-	position: absolute;
+	position: fixed;
 	width: 250px;
 	top: 0;
 }
@@ -191,8 +192,9 @@ body > .header .navbar .sidebar-toggle {
 -------------------------------------------------
 */
 body > .header {
-	position: relative;
+	position: fixed;
 	z-index: 1030;
+	height: 50px;
 }
 body > .header .navbar {
 	height: 50px;
@@ -262,7 +264,7 @@ body > .header .logo .icon {
 	margin-bottom: 0;
 	font-size: 12px;
 	font-family: lato;
-	padding: 7px 5px;
+	padding: 2px 5px;
 	position: absolute;
 	top: 15px;
 	right: 10px;
@@ -281,6 +283,7 @@ body > .header .logo .icon {
 	content: '\00BB';
 	font-size: 16px;
 	color: #000;
+	line-height: 0px;
 }
 @media screen and (max-width: 767px) {
 .right-side > .content-header > .breadcrumb {
@@ -656,7 +659,7 @@ body.fixed .row-offcanvas-left .sidebar-offcanvas {
 	text-align: center;
 }
 .topprofiletext {
-	margin-left: -18px !important;
+	margin-left: -52px !important;
 }
 .navbar-nav > .user-menu > .dropdown-menu > li.user-header > img {
 	z-index: 5;
@@ -1352,4 +1355,82 @@ border-color: #A9B6B1 !important;
 }
 .text-danger {
 	color: #f56954;
+}
+/* chat */
+.chat
+{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.chat li
+{
+    border-bottom: 1px dotted #B3A9A9;
+	padding: 10px 15px;
+}
+.chat li.left .chat-body
+{
+    margin-left: 60px;
+}
+.chat li.right .chat-body
+{
+    margin-right: 60px;
+}
+.chat li.right .chat-body p {
+	text-align: right;
+}
+.chat li .chat-body p
+{
+    margin: 0;
+    color: #777777;
+}
+.panel .slidedown .glyphicon, .chat .glyphicon
+{
+    margin-right: 5px;
+}
+.chat-scroll
+{
+    overflow-y: scroll;
+    height: 250px;
+}
+/* extra sam stuff */
+.panel-body > table:only-child {
+	margin-bottom: 0;
+}
+.skin-josh .navbar .navbar-right > .nav > .dropdown:not(:last-child) {
+	margin-top: 2px;
+}
+.select2-container .select2-choice > .select2-chosen {
+margin-left:-10px;
+margin-top:-5px;
+}
+.modal-small .modal-dialog
+{
+	width: 420px;
+}
+.cal-day-basic {
+	padding-top: 20px !important;
+	text-align: center;
+}
+.cal-day-basic h3 {
+	margin-top: 3px;
+}
+.advanced-pricing-row {
+	padding: 0 25px 0 15px !important;
+}
+.advanced-pricing-close {
+	padding: 0;
+	position: absolute;
+	right: -7px;
+	color: #dd0000;
+	font-size: 14px;
+	font-weight: bold;
+	display: block;
+	margin-top: 26px;
+}
+label.standard-check {
+	line-height: 24px;
+	font-weight: normal !important;
+	margin: 0 !important;
+	display: inline !important;
 }

@@ -15,6 +15,7 @@ Route::get('/', function()
 {
 	return View::make('hello');
 });
+
 Route::group(array('prefix' => 'admin'), function () {
 
 	//All basic routes defined here
@@ -56,10 +57,73 @@ Route::group(array('prefix' => 'admin'), function () {
     });	
 
 
+
+	// OUR EDITS BEGIN HERE
+
+    Route::filter('Sentry', function()
+    {
+    	if (!Sentry::check())
+    	{
+    		return Redirect::to('/admin/login');
+    	}
+    });
+
+	Route::group(array('before' => 'Sentry'), function()
+	{
+		Route::get('/', function()
+		{
+			return Redirect::to('admin/index');
+		});
+
+		require('routes/index_route.php');
+		require('routes/calendar_route.php');
+		require('routes/events_route.php');
+		require('routes/event_route.php');
+
+		Route::group(array('prefix' => 'json'), function()
+		{
+			Route::group(array('prefix' => 'todo'), function()
+			{
+				require('routes/json_todo.php');
+			});
+
+			Route::group(array('prefix' => 'clients'), function()
+			{
+				require('routes/json_clients.php');
+			});
+
+			Route::group(array('prefix' => 'event_notes'), function()
+			{
+				require('routes/json_event_notes.php');
+			});
+			
+			Route::group(array('prefix' => 'events'), function()
+			{
+				require('routes/json_events.php');
+			});
+
+			Route::group(array('prefix' => 'pricing'), function()
+			{
+				require('routes/json_pricing.php');
+			});
+
+			Route::group(array('prefix' => 'calendar'), function()
+			{
+				require('routes/json_calendar.php');
+			});
+
+		});
+
+
+	});
+
+
+
+	// OUR EDITS END HERE
+
+
 	//Remaining pages will be called from below controller method
 	//in real world scenario, you may be required to define all routes manually
 	Route::get('{name?}', 'JoshController@showView');
 	
-	
-
 }); 

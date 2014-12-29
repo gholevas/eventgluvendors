@@ -233,8 +233,10 @@ body, html {
 	border-right: 1px solid #bbe5ff;
 }
 .col-md-3 {
+/*
 	min-height: 100% !important;
 	height: auto !important;
+*/
 }
 .web-mail .content ul {
 	margin: 0 !important;

@@ -16,6 +16,34 @@ class AdminSeeder extends Seeder {
 			'first_name'  => 'John',
 			'last_name'   => 'Doe',
 			'activated'   => 1,
+			'venue_id'    => 1
+		));
+
+		Sentry::getUserProvider()->create(array(
+			'email'       => 'sam@sam.com',
+			'password'    => "sam",
+			'first_name'  => 'John',
+			'last_name'   => 'Doe',
+			'activated'   => 1,
+			'venue_id'    => 1
+		));
+
+		Sentry::getUserProvider()->create(array(
+			'email'       => 'paul@paul.com',
+			'password'    => "paul",
+			'first_name'  => 'John',
+			'last_name'   => 'Doe',
+			'activated'   => 1,
+			'venue_id'    => 1
+		));
+
+		Sentry::getUserProvider()->create(array(
+			'email'       => 'central@centrallounge.com',
+			'password'    => "central",
+			'first_name'  => 'John',
+			'last_name'   => 'Doe',
+			'activated'   => 1,
+			'venue_id'    => 1
 		));
 
 		Sentry::getGroupProvider()->create(array(

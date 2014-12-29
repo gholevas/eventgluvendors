@@ -8,7 +8,7 @@
         | eventGL&uuml;
         @show
     </title>
-    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -40,15 +40,21 @@
     <!--clock face css-->
     <link href="{{ asset('assets/vendors/iCheck/skins/all.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/css/pages/formelements.css') }}" rel="stylesheet" />
-        <!--page level css -->
-    <link href="css/pages/form_layouts.css" rel="stylesheet" type="text/css"/>
-    <!--end of page level css-->
     <link href="{{ asset('assets/css/pages/form_layouts.css') }}" rel="stylesheet" type="text/css"/>
-
-
+	<link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/datatables/css/select2.css') }}" />
+	<link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/datatables/css/dataTables.bootstrap.css') }}" />
+	<link href="{{ asset('assets/css/pages/tables.css') }}" rel="stylesheet" type="text/css" />
+	<!-- page level css -->
+<!--
+	<link href="{{ asset('assets/vendors/x-editable/css/x-select.css') }}" type="text/css" rel="stylesheet" />
+	<link href="{{ asset('assets/vendors/x-editable/css/bootstrap-editable.css') }}" type="text/css" rel="stylesheet" />
+	<link href="{{ asset('assets/vendors/x-editable/css/x-selectbootstrap.css') }}" type="text/css" rel="stylesheet" />
+	<link href="{{ asset('assets/vendors/x-editable/css/typehead-bootstrap.css') }}" type="text/css" rel="stylesheet" />
+	<link href="{{ asset('assets/css/pages/inlinedit.css') }}" rel="stylesheet" />
+--->
 </head>
 
-<body onload="initialize()" class="skin-josh">
+<body class="skin-josh">
     <header class="header" id="HEADER_1">
         <a href="{{ URL::to('admin/index') }}" class="logo">
             <img src="{{ asset('assets/img/logo.png') }}" alt="logo">
@@ -87,6 +93,7 @@
                             </li>
                         </ul>
                     </li>
+                <!--
                     <li class="dropdown messages-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="livicon" data-name="message-flag" data-loop="true" data-color="#7cc142" data-hovercolor="#7cc142" data-size="28"></i>
                             <span class="label label-danger">4</span>
@@ -149,6 +156,13 @@
                             </li>
                         </ul>
                     </li>
+                    -->
+
+                   <!--
+
+                    -->
+
+                    <!--
                     <li class="dropdown notifications-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="livicon" data-name="bell" data-loop="true" data-color="#7cc142" data-hovercolor="#e9573f" data-size="28"></i>
@@ -157,7 +171,7 @@
                         <ul class=" notifications dropdown-menu">
                             <li class="dropdown-title">You have 7 notifications</li>
                             <li>
-                                <!-- inner menu: contains the actual data -->
+                    
                                 <ul class="menu">
                                     <li>
                                         <i class="livicon danger" data-n="timer" data-s="20" data-c="white" data-hc="white"></i>
@@ -222,12 +236,16 @@
                             </li>
                         </ul>
                     </li>
+                    -->
+                    
+
+                    
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <img data-src="holder.js/35x35/#fff:#000" width="35" class="img-circle img-responsive pull-left" height="35" alt="riot">
+                            <img src="http://www.gravatar.com/avatar/{{{md5(Sentry::getUser()->email)}}}" <?php /*data-src="holder.js/35x35/#fff:#000"*/ ?> width="35" class="img-circle img-responsive pull-left" height="35" alt="riot">
                             <div class="riot">
                                 <div>
-                                    {{ Sentry::getUser()->first_name }} {{ Sentry::getUser()->last_name }}
+                                    {{{$venue->name}}}
                                     <span>
                                         <i class="caret"></i>
                                     </span>
@@ -237,8 +255,8 @@
                         <ul class="dropdown-menu">
                             <!-- User image -->
                             <li class="user-header bg-light-blue">
-                                <img data-src="holder.js/90x90/#fff:#000" class="img-responsive img-circle" alt="User Image">
-                                <p class="topprofiletext">{{ Sentry::getUser()->first_name }} {{ Sentry::getUser()->last_name }}</p>
+                                <img src="http://www.gravatar.com/avatar/{{{md5(Sentry::getUser()->email)}}}" <?php /*data-src="holder.js/90x90/#fff:#000"*/ ?> class="img-responsive img-circle" alt="User Image">
+                                <p class="topprofiletext">{{{$venue->name}}}</p>
                             </li>
                             <!-- Menu Body -->
                             <li>
@@ -270,11 +288,12 @@
         </nav>
     </header>
 <!--- new event responsive model -->
-    <div class="modal fade in" id="newEvent" tabindex="-1" role="dialog" aria-hidden="false" style="display:none;">
+    <div class="modal fade in" id="newEvent" role="dialog" aria-hidden="false" style="display:none;">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-body">
                     <div class="row">
+                        <form class="form-horizontal form-bordered event-new-submit">
                         <!--basic form starts-->
                         <div class="panel panel-primary" id="hidepanel1">
                             <div class="panel-heading">
@@ -284,47 +303,45 @@
                                 </h3>
                             </div>
                             <div class="panel-body border">
-                                <form class="form-horizontal form-bordered" action="#" method="post">
                                     <fieldset>
                                         <!-- Name input-->
                                         <div class="form-group striped-col">
-                                            <label class="col-md-3 control-label" for="name">Event Name</label>
+                                            <label class="col-md-3 control-label" for="ne-eventname">Event Name</label>
                                             <div class="col-md-9">
-                                                <input id="name" name="name" type="text" placeholder="ex. Maria's Sweet 16" class="form-control"></div>
+                                                <input id="ne-eventname" type="text" placeholder="ex. Maria's Sweet 16" class="form-control"></div>
                                         </div>
-										<!--select2 starts-->
                                         <div class="form-group">
-                                            <label class="col-md-3 control-label" for="name">
+                                            <label class="col-md-3 control-label" for="ne-type">
                                                 Type
                                             </label>
                                             <div class="col-md-9">
-                                            <select id="e1" class="form-control select2">
-                                                    <option value="Room1">Select a Type</option>
-                                                    <option value="Room1">Sweet 16</option>
-                                                    <option value="Room2">Corporate Event</option>
+                                            <select id="ne-type" class="form-control select2">
+                                                    <option value="">Select a Type</option>
+                                                    <option value="Sweet 16">Sweet 16</option>
+                                                    <option value="Corporate Event">Corporate Event</option>
                                             </select>
                                             </div>
                                         </div>
                                          <!--select2 starts-->
                                         <div class="form-group striped-col">
-                                            <label class="col-md-3 control-label" for="name">
+                                            <label class="col-md-3 control-label" for="ne-room">
                                                 Room
                                             </label>
                                             <div class="col-md-9">
-                                            <select id="e1" class="form-control select2">
-                                                    <option value="Room1">Select a Room</option>
-                                                    <option value="Room1">Room1</option>
-                                                    <option value="Room2">Room2</option>
+                                            <select id="ne-room" class="form-control select2">
+                                                    <option value="">Select a Room</option>
+                                                    @@foreach ($rooms as $room)
+                                                    <option value="{{{$room->id}}}">{{{$room->name}}}</option>
+                                                    @@endforeach 
                                             </select>
                                             </div>
                                         </div>
-                                        <!-- Name input-->
                                         <div class="form-group">
-                                            <label class="col-md-3 control-label" for="name">
+                                            <label class="col-md-3 control-label" for="ne-datetime">
                                                 Date and Time
                                             </label>
-                                            <div class="input-group date form_datetime5 col-md-9 pull-right" data-date="2012-12-21T15:25:00Z" data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
-                                                <input type="text" value="" class="form-control" readonly>
+                                            <div class="input-group date form_datetime5 col-md-9 pull-right" data-date="<?php echo date('Y-m-d'); ?>T00:00:00Z" data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
+                                                <input id="ne-datetime" type="text" value="" class="form-control">
                                                 <span class="input-group-addon">
                                                     <span class="glyphicon glyphicon-remove"></span>
                                                 </span>
@@ -333,58 +350,47 @@
                                                 </span>
                                             </div>
                                         </div>
-                                        <!-- Name input-->
                                         <div class="form-group striped-col">
-                                            <label class="col-md-3 control-label" for="name">Event Duration</label>
-                                            <input id="demo1" type="text" value="4" name="demo1" class="form-control"></div>
-                                        <!-- Name input-->
+                                            <label class="col-md-3 control-label" for="ne-duration">Event Duration</label>
+                                            <div class="col-md-offset-3">
+												<input id="ne-duration" type="text" value="4" class="form-control ts-dur">
+											</div>
+                                        </div>
                                         <div class="form-group">
-                                            <label class="col-md-3 control-label" for="name">Guests</label>
+                                            <label class="col-md-3 control-label">Guests</label>
 
                                             <div class="col-md-offset-3">
-                                            <input id="adults" type="text" value="50" name="adults" class="form-control">
+												<input id="ne-adults" type="text" value="50" class="form-control ts-adults">
                                             </div>
                                             <div class="col-md-offset-3">
-                                            <input id="kids" type="text" value="50" name="kids" class="form-control">
+												<input id="ne-kids" type="text" value="50" class="form-control ts-kids">
                                             </div> 
                                         </div>
-                                        <!-- Email input-->
                                         <div class="form-group striped-col">
                                             <label for="single-append-text" class="col-md-3 control-label">
                                                 Client
                                             </label>
-                                            <div class="input-group select2-bootstrap-append">
-                                                <select id="single-append-text" class="form-control select2-allow-clear">
-                                                        <option value="0">Search for Client</option>
-                                                        <option value="1">John Doe</option>
-                                                        <option value="2">Peter Willis</option>
-                                                </select>
-                                                <span class="input-group-btn">
-                                                    <button class="btn btn-default" type="button" data-select2-open="single-append-text">
-                                                        <span class="glyphicon glyphicon-search"></span>
-                                                    </button>
-                                                </span>
-                                                <a class="btn btn-default pull-right" data-toggle="modal" href="#newClient">Create New Client</a>
+                                            <div class="col-md-9">
+                                                <div style="width:270px;float:left;"><input id="ne-client" class="form-control client-search" type="hidden"></div> <a class="btn btn-default pull-right" data-toggle="modal" href="#newClient">Create Client</a>
                                             </div>
                                         </div>
-                                        <!-- Message body -->
                                         <div class="form-group">
-                                            <label class="col-md-3 control-label" for="message">Notes</label>
+                                            <label class="col-md-3 control-label" for="ne-notes">Notes</label>
                                             <div class="col-md-9">
-                                                <textarea class="form-control" id="message" name="message" placeholder="Enter your notes here..." rows="5"></textarea>
+                                                <textarea class="form-control" id="ne-notes" placeholder="Enter your notes here..." rows="5"></textarea>
                                             </div>
                                         </div>
                                     </fieldset>
-                                </form>
                             </div>
                         </div>
                         <!-- Form actions -->
-                <div class="form-group">
-                    <div class="col-md-12 text-right">
-						<button type="submit" class="btn btn-responsive btn-warning">Create New Lead</button>&nbsp;&nbsp;&nbsp;
-                        <button type="submit" class="btn btn-responsive btn-success pull-right">Create New Confirmed Event</button>
-                    </div>
-                </div>
+						<div class="form-group">
+							<div class="col-md-12 text-right">
+								<button type="submit" class="btn btn-responsive btn-warning ">Create New Lead</button>&nbsp;&nbsp;&nbsp;
+								<button type="submit" class="btn btn-responsive btn-success pull-right isConfirmed">Create New Confirmed Event</button>
+							</div>
+						</div>
+                        </form>
                     </div>
 
                 </div>
@@ -393,318 +399,301 @@
     </div>
     <!-- END modal-->
     <!--- see client responsive model -->
-    <div class="modal fade in" id="newClient" tabindex="-1" role="dialog" aria-hidden="false" style="display:none;">
+    <div class="modal fade in" id="newClient" role="dialog" aria-hidden="false" style="display:none;">
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-body">
                     <div class="row">
                         <!--basic form starts-->
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">
-                                    <i class="livicon" data-name="users" data-c="#fff" data-hc="#fff" data-size="18" data-loop="true"></i>
-                                    New Client
-                                </h3>
-                            </div>
-                            <div class="panel-body border">
-                                <form action="#" method="post" enctype="multipart/form-data" class="form-horizontal form-bordered">
-                                    <div class="form-body">
-                                        <div class="form-group striped-col">
-                                            <label for="inputUsername" class="col-md-3 control-label">
-                                            <i class="livicon" data-name="user" data-size="18" data-c="#000" data-hc="#000" data-loop="true"></i>
-                                            </label>
-                                            <div class="col-md-9 pull-right">
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control" placeholder=" First name"></div>
-                                            </div>
-                                            <div class="col-md-9 pull-right">
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control" placeholder=" Last name"></div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="inputUsername" class="col-md-3 control-label">
-                                                <i class="livicon" data-name="cellphone" data-size="18" data-c="#000" data-hc="#000" data-loop="true"></i>
-                                            </label>
-                                            <div class="col-md-9 pull-right">
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control" placeholder=" Primary number"></div>
-                                            </div>
-                                            <div class="col-md-9 pull-right">
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control" placeholder=" Secondary number"></div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group striped-col">
-                                            <label for="inputUsername" class="col-md-3 control-label">
-                                                <i class="livicon" data-name="printer" data-size="18" data-c="#000" data-hc="#000" data-loop="true"></i>
-                                            </label>
-                                            <div class="col-md-9 pull-right">
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control" placeholder=" Fax number"></div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="inputEmail" class="col-md-3 control-label">
-                                                <i class="livicon" data-name="mail" data-size="18" data-c="#000" data-hc="#000" data-loop="true"></i>
-                                            </label>
-                                            <div class="col-md-9 pull-right">
-                                                <div class="input-group">
-                                                    <input type="text" placeholder=" Email address" class="form-control"/>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group striped-col">
-                                            <label for="inputAddress" class="col-md-3 control-label">
-                                                <i class="livicon" data-name="map" data-c="#000" data-hc="#000" data-size="18" data-loop="true"></i>
-                                            </label>
-                                            <div class="col-md-9 pull-right">
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control" id="location_input" placeholder=" Address"></div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="inputContent" class="col-md-3 control-label">
-                                            <i class="livicon" data-name="doc-portrait" data-c="#000" data-hc="#000" data-size="18" data-loop="true"></i>
-                                            </label>
-                                            <div class="col-md-9 pull-right">
-                                                <textarea id="inputContent" rows="3" class="form-control" placeholder=" Enter your notes here..."></textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-                                <div class="form-actions">
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-offset-3 col-md-9">
-                            <button type="submit" class="btn btn-primary pull-right">Create New Client</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-<!-- END modal-->
-	
-	
-	<!--- new quote model -->
-                <div class="modal fade in" id="newQuote" tabindex="-1" role="dialog" aria-hidden="false" style="display:none;">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header success">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                <h4 class="modal-title">New Quote Generator</h4>
-                            </div>
-							
-                            <div class="modal-body">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <h4>Event Details</h4>
-										<form class="form-horizontal form-bordered" action="#" method="post">
-                                    <fieldset>
-										<!-- Name input-->
-                                        <div class="form-group striped-col">
-                                            <label class="col-md-3 control-label" for="name">Event Name</label>
-                                            <div class="col-md-9">
-                                                <input id="name" name="name" type="text" placeholder="ex. Maria's Sweet 16" class="form-control"></div>
-                                        </div>
-								
-                                         <!--select2 starts-->
-										
-                                        <div class="form-group">
-                                            <label class="col-md-3 control-label" for="name">
-                                                Room
-                                            </label>
-                                            <div class="col-md-9">
-                                            <select id="e1" class="form-control select2">
-                                                    <option value="Room1">Select a Room</option>
-                                                    <option value="Room1">Room1</option>
-                                                    <option value="Room2">Room2</option>
-                                            </select>
-                                            </div>
-                                        </div>
-                                        <!-- Name input-->
-                                        <div class="form-group striped-col">
-                                            <label class="col-md-3 control-label" for="name">
-                                                Date and Time
-                                            </label>
-                                            <div class="input-group date form_datetime5 col-md-9 pull-right" data-date="2012-12-21T15:25:00Z" data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
-                                                <input type="text" value="" class="form-control" readonly>
-                                                <span class="input-group-addon">
-                                                    <span class="glyphicon glyphicon-remove"></span>
-                                                </span>
-                                                <span class="input-group-addon">
-                                                    <span class="glyphicon glyphicon-th"></span>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <!-- Name input-->
-                                        <div class="form-group">
-                                            <label class="col-md-3 control-label" for="name">Event Duration</label>
-                                            <input id="demo1" type="text" value="4" name="demo1" class="form-control"></div>
-                                        <!-- Name input-->
-                                        <div class="form-group striped-col">
-                                            <label class="col-md-3 control-label" for="name">Guests</label>
-
-                                            <div class="col-md-offset-3">
-                                            <input id="adults" type="text" value="50" name="adults" class="form-control">
-                                            </div>
-                                            <div class="col-md-offset-3">
-                                            <input id="kids" type="text" value="50" name="kids" class="form-control">
-                                            </div> 
-                                        </div>
-                                       
-                                    </fieldset>
-                                </form>
-                                 
-                                    </div>
-                                    <div class="col-md-6">
-                                        <h4>Order Details</h4>
-										<form class="form-horizontal form-bordered" action="#" method="post">
-                                    <fieldset>
-									   <div class="form-group striped-col">
-                                            <label class="col-md-3 control-label" for="name">
-                                                Food package
-                                            </label>
-                                            <div class="col-md-offset-3">
-                                            <select id="e1" class="form-control select2">
-                                                    <option value="Room1">Select a package</option>
-                                                    <option value="Room1">Passing Menu</option>
-                                                    <option value="Room2">Buffet Menu</option>
-													<option value="Room2">Standard Menu</option>
-                                            </select>
-											
+						<form class="clients-new-submit">
+							<div class="panel panel-primary">
+								<div class="panel-heading">
+									<h3 class="panel-title">
+										<i class="livicon" data-name="users" data-c="#fff" data-hc="#fff" data-size="18" data-loop="true"></i>
+										New Client
+									</h3>
+								</div>
+								<div class="panel-body border">
+									<div class="form-horizontal form-bordered">
+										<div class="form-body">
+											<div class="form-group striped-col">
+												<label for="" class="col-md-3 control-label">
+												<i class="livicon" data-name="user" data-size="18" data-c="#000" data-hc="#000" data-loop="true"></i>
+												</label>
+												<div class="col-md-9 pull-right">
+													<div class="input-group">
+														<input id="nc-firstname" type="text" class="form-control" placeholder=" First name"></div>
+												</div>
+												<div class="col-md-9 pull-right">
+													<div class="input-group">
+														<input id="nc-lastname" type="text" class="form-control" placeholder=" Last name"></div>
+												</div>
 											</div>
-											
-												<div class="col-md-offset-3">
-												<div class="span4">
-													<div class="form-control display-no">
-													<select id="e1" class="form-control select2">
-                                                    <option value="Room1">Select a package</option>
-                                                    <option value="Room1">Passing Menu</option>
-                                                    <option value="Room2">Buffet Menu</option>
-													<option value="Room2">Standard Menu</option>
-													</select>
-													</div>
-													<a onclick="$(this).closest('.span4').find('div').toggle(); $(this).text(this.text=='Different package for kids?'?'Same package as adults':'Different package for kids?');return false;" href="#">Different package for kids?</a>
-                                        		</div>
+											<div class="form-group">
+												<label for="" class="col-md-3 control-label">
+													<i class="livicon" data-name="cellphone" data-size="18" data-c="#000" data-hc="#000" data-loop="true"></i>
+												</label>
+												<div class="col-md-9 pull-right">
+													<div class="input-group">
+														<input id="nc-primary" type="text" class="form-control" placeholder=" Primary number"></div>
 												</div>
-                                          
-											
-                                        </div>
-                                         <!--select2 starts-->
-                                        <div class="form-group">
-                                            <label class="col-md-3 control-label" for="name">
-                                                Drink package
-                                            </label>
-                                            <div class="col-md-9">
-                                            <select id="e1" class="form-control select2">
-                                                    <option value="Room1">Select a package</option>
-                                                    <option value="Room1">Cash Bar</option>
-                                                    <option value="Room2">Premium Open Bar</option>
-                                            </select>
-												
-                                            </div>
-											<div class="col-md-offset-3">
-												<div class="span5">
-													<div class="form-control display-no">
-													<select id="e1" class="form-control select2">
-                                                    <option value="Room1">Select a package</option>
-                                                    <option value="Room1">Passing Menu</option>
-                                                    <option value="Room2">Buffet Menu</option>
-													<option value="Room2">Standard Menu</option>
-													</select>
-													</div>
-													<a onclick="$(this).closest('.span5').find('div').toggle(); $(this).text(this.text=='Different package for kids?'?'Same package as adults':'Different package for kids?');return false;" href="#">Different package for kids?</a>
-                                        		</div>
+												<div class="col-md-9 pull-right">
+													<div class="input-group">
+														<input id="nc-secondary" type="text" class="form-control" placeholder=" Secondary number"></div>
 												</div>
-                                        </div>
-						
-                                        <!-- Name input-->
-										<div class="form-group striped-col">
-                                            <label class="col-md-3 control-label" for="name">
-                                                Add-Ons
-                                            </label>
-                                            <div class="col-md-9">
-                                            
-												<label>
-													<input type="checkbox" class="flat-red" />
-												</label>Extra hour<br>
-												<label>
-													<input type="checkbox" class="flat-red" />
-												</label>Vianese Table
-												
-											
-                                            </div>
-                                        </div>
-                                        <!-- Name input-->
-                                        <div class="form-group">
-                                            <label class="col-md-3 control-label" for="name">Discount</label>
-                                            <input id="demo1" type="text" value="10" name="demo1" class="form-control"></div>
-                                        
-                              
-                                    
-											</fieldset>
-										</form>
-                        
-										
-										
-										
-										
-										
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-								<div class="table-responsive danger">
-                                        <table class="table table-condensed">
-                                            <thead>
-                                                <tr>
-                                                    <td>
-                                                        <strong>Price per person</strong>
-                                                    </td>
-                                                    <td class="text-center">
-                                                        <strong>Discount (10%)</strong>
-                                                    </td>
-                                                    <td class="text-center">
-                                                        <strong>Tax</strong>
-                                                    </td>
-													<td class="text-center">
-                                                        <strong>Gratuity</strong>
-                                                    </td>
-                                                    <td class="text-right">
-                                                        <strong>Total</strong>
-                                                    </td>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td class="highrow">$99.50</td>
-                                                    <td class="highrow">$9.99</td>
-                                                    <td class="highrow">$706.45</td>
-                                                    <td class="highrow">$1592.00</td>
-													<td class="highrow">$10,258.45</td>
-                                                </tr>
-                                        </tbody>
-                                    </table>
-										
-                                </div>
-								
-							
-
-                                <button type="button" data-dismiss="modal" class="btn">Close</button>
-								<button type="button" class="btn btn-warning">Create Lead</button>
-                                <button type="button" class="btn btn-success">Create Confirmed Event</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- END modal-->
-	
-	
-	
+											</div>
+											<div class="form-group striped-col">
+												<label for="nc-fax" class="col-md-3 control-label">
+													<i class="livicon" data-name="printer" data-size="18" data-c="#000" data-hc="#000" data-loop="true"></i>
+												</label>
+												<div class="col-md-9 pull-right">
+													<div class="input-group">
+														<input id="nc-fax" type="text" class="form-control" placeholder=" Fax number"></div>
+												</div>
+											</div>
+											<div class="form-group">
+												<label for="nc-emailaddress" class="col-md-3 control-label">
+													<i class="livicon" data-name="mail" data-size="18" data-c="#000" data-hc="#000" data-loop="true"></i>
+												</label>
+												<div class="col-md-9 pull-right">
+													<div class="input-group">
+														<input id="nc-emailaddress" type="text" placeholder=" Email address" class="form-control"/>
+													</div>
+												</div>
+											</div>
+											<div class="form-group striped-col">
+												<label for="nc-address" class="col-md-3 control-label">
+													<i class="livicon" data-name="map" data-c="#000" data-hc="#000" data-size="18" data-loop="true"></i>
+												</label>
+												<div class="col-md-9 pull-right">
+													<div class="input-group">
+														<input id="nc-address" type="text" class="form-control" placeholder=" Address"></div>
+												</div>
+											</div>
+											<div class="form-group">
+												<label for="nc-comments" class="col-md-3 control-label">
+												<i class="livicon" data-name="doc-portrait" data-c="#000" data-hc="#000" data-size="18" data-loop="true"></i>
+												</label>
+												<div class="col-md-9 pull-right">
+													<textarea id="nc-comments" rows="3" class="form-control" placeholder=" Enter your notes here..."></textarea>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-md-12 text-right">
+									<button type="submit" class="btn btn-primary pull-right">Create New Client</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<!-- END modal-->
+<!--- new quote model -->
+<div class="modal fade in" id="newQuote" role="dialog" aria-hidden="false" style="display:none;">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header success">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				<h4 class="modal-title">New Quote Generator</h4>
+			</div>
+			<form class="form-horizontal form-bordered quote-new-submit">			
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-6">
+						<h4>Event Details</h4>
+							<fieldset>
+								<div class="form-group striped-col">
+									<label class="col-md-3 control-label" for="nq-eventname">Event Name</label>
+									<div class="col-md-9">
+										<input id="nq-eventname" type="text" placeholder="ex. Maria's Sweet 16" class="form-control">
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-3 control-label" for="nq-type">
+										Type
+									</label>
+									<div class="col-md-9">
+									<select id="nq-type" class="form-control select2">
+											<option value="">Select a Type</option>
+											<option value="Sweet 16">Sweet 16</option>
+											<option value="Corporate Event">Corporate Event</option>
+									</select>
+									</div>
+								</div>
+								<div class="form-group striped-col">
+									<label class="col-md-3 control-label" for="nq-room">
+										Room
+									</label>
+									<div class="col-md-9">
+									<select id="nq-room" class="form-control select2">
+											<option value="">Select a Room</option>
+                                              @foreach ($rooms as $room)
+                                              <option value="{{{$room->id}}}">{{{$room->name}}}</option>
+                                              @endforeach 
+									</select>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-3 control-label" for="nq-datetime">
+										Date and Time
+									</label>
+									<div class="input-group date form_datetime5 col-md-9 pull-right" data-date="<?php echo date('Y-m-d'); ?>T00:00:00Z" data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
+										<input id="nq-datetime" type="text" value="" class="form-control">
+										<span class="input-group-addon">
+											<span class="glyphicon glyphicon-remove"></span>
+										</span>
+										<span class="input-group-addon">
+											<span class="glyphicon glyphicon-th"></span>
+										</span>
+									</div>
+								</div>
+								<div class="form-group striped-col">
+									<label class="col-md-3 control-label" for="nq-duration">Event Duration</label>
+									<div class="col-md-offset-3">
+										<input id="nq-duration" type="text" value="4" class="form-control ts-dur">
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-3 control-label">Guests</label>
+									<div class="col-md-offset-3">
+										<input id="nq-adults" type="text" value="50" class="form-control ts-adults">
+									</div>
+									<div class="col-md-offset-3">
+										<input id="nq-kids" type="text" value="50" class="form-control ts-kids">
+									</div> 
+								</div>
+							</fieldset>
+					</div>
+					<div class="col-md-6">
+						<h4>Order Details</h4>
+							<fieldset>
+							   <div class="form-group striped-col">
+									<label class="col-md-3 control-label">Food package</label>
+									<div class="col-md-offset-3">
+										<select id="nq-food" class="form-control select2 consume-parent">
+											<option value="">Select a food package</option>
+                                                @foreach ($food_options as $option)
+                                                <option value="{{{$option->id}}}">{{{$option->name}}}</option>
+                                                @endforeach
+										</select><br>
+										<input type="hidden" id="nq-food-extras" class="consume-extras form-control" data-test="12312312312312">
+									</div>
+									<div class="col-md-offset-3" style="padding-top: 0;">
+										<div class="span4">
+											<div id="food-kids" style="display:none;">
+												<select id="nq-foodkids" class="form-control select2 consume-parent">
+												<option value="">Select a kid's food package</option>
+                                                @foreach ($food_options as $option)
+                                                <option value="{{{$option->id}}}">{{{$option->name}}}</option>
+                                                @endforeach
+												</select><br>
+												<input type="hidden" id="nq-foodkids-extras" class="consume-extras form-control" multiple><br>
+											</div>
+											<a onclick="$('#food-kids').toggle(); $('#nq-foodkids').val(''); $('#nq-foodkids-extras').select2('data', null); $(this).text(this.text=='Different package for kids?'?'Same package as adults':'Different package for kids?');return false;" href="#">Different package for kids?</a>
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-3 control-label">Drink package</label>
+									<div class="col-md-offset-3">
+										<select id="nq-drink" class="form-control select2 consume-parent">
+                                            <option value="">Select a drink package</option>
+                                                @foreach ($drink_options as $option)
+                                                <option value="{{{$option->id}}}">{{{$option->name}}}</option>
+                                                @endforeach
+										</select><br>
+										<input type="hidden" id="nq-drink-extras" class="consume-extras form-control" multiple>
+									</div>
+									<div class="col-md-offset-3" style="padding-top: 0;">
+										<div class="span4">
+											<div id="drink-kids" style="display:none;">
+												<select id="nq-drinkkids" class="form-control select2 consume-parent">
+													<option value="">Select a kid's drink package</option>
+                                                @foreach ($drink_options as $option)
+                                                <option value="{{{$option->id}}}">{{{$option->name}}}</option>
+                                                @endforeach
+												</select><br>
+												<input type="hidden" id="nq-drinkkids-extras" class="consume-extras form-control" multiple><br>
+											</div>
+											<a onclick="$('#drink-kids').toggle(); $('#nq-drinkkids').val(''); $('#nq-drinkkids-extras').select2('data', null); $(this).text(this.text=='Different package for kids?'?'Same package as adults':'Different package for kids?');return false;" href="#">Different package for kids?</a>
+										</div>
+									</div>
+								</div>
+								<div class="form-group striped-col">
+									<label class="col-md-3 control-label">Add-Ons</label>
+									<div class="col-md-9">
+                                        @foreach ($addons as $addon)
+                                        <label class="standard-check"><input type="checkbox" class="nq-addons" value="{{{$addon->id}}}" />&nbsp;{{{$addon->name}}}</label><br>
+                                        @endforeach
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-3 control-label" for="nq-discount">Discount</label>
+									<div class="col-md-9">
+									<input id="nq-discount" type="text" value="10" class="form-control ts-perc">
+									</div>
+								</div>
+								<div class="form-group striped-col">
+									<label for="single-append-text" class="col-md-3 control-label">
+										Client
+									</label>
+									<div class="col-md-9">
+										<div style="width:270px;float:left;"><input id="nq-client" class="form-control client-search" type="hidden"></div> <a class="btn btn-default pull-right" href="javascript:void(0);" onClick="$('#newClient').appendTo('body').modal('show')">Create Client</a>
+									</div>
+								</div>
+							</fieldset>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<div class="table-responsive danger">
+					<table class="table table-condensed">
+						<thead>
+							<tr>
+								<td>
+									<strong>Price per person</strong>
+								</td>
+								<td class="text-center">
+									<strong>Discount (10%)</strong>
+								</td>
+								<td class="text-center">
+									<strong>Tax</strong>
+								</td>
+								<td class="text-center">
+									<strong>Gratuity</strong>
+								</td>
+								<td class="text-right">
+									<strong>Total</strong>
+								</td>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="highrow" id="quote-pp">$0.00</td>
+								<td class="highrow" id="quote-dc">$0.00</td>
+								<td class="highrow" id="quote-tax">$0.00</td>
+								<td class="highrow" id="quote-grat">$0.00</td>
+								<td class="highrow" id="quote-total">$0.00</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<br>
+				<button type="button" data-dismiss="modal" class="btn">Close</button>
+				<button type="submit" class="btn btn-warning isFullQuote">Create Lead</button>
+				<button type="submit" class="btn btn-success isConfirmed isFullQuote">Create Confirmed Event</button>
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+<!-- END modal-->
     <div class="wrapper row-offcanvas row-offcanvas-left">
         <!-- Left side column. contains the logo and sidebar -->
         <aside class="left-side sidebar-offcanvas">
@@ -734,19 +723,19 @@
                             </a>
                             <ul class="sub-menu">
                                 <li {{ (Request::is('admin/upcoming_events') ? 'class="active"' : '') }}>
-                                    <a href="{{ URL::to('admin/upcoming_events') }}">
+                                    <a href="{{ URL::to('admin/events/0') }}">
                                         <i class="fa fa-angle-double-right"></i>
                                         Upcoming Events
                                     </a>
                                 </li>
                                 <li {{ (Request::is('admin/leads') ? 'class="active"' : '') }}>
-                                    <a href="{{ URL::to('admin/leads') }}">
+                                    <a href="{{ URL::to('admin/events/1') }}">
                                         <i class="fa fa-angle-double-right"></i>
                                         Leads
                                     </a>
                                 </li>
                                 <li {{ (Request::is('admin/past_events') ? 'class="active"' : '') }}>
-                                    <a href="{{ URL::to('admin/past_events') }}">
+                                    <a href="{{ URL::to('admin/events/2') }}">
                                         <i class="fa fa-angle-double-right"></i>
                                         Past Events
                                     </a>
@@ -760,32 +749,24 @@
                                 <span class="fa arrow"></span>
                             </a>
                             <ul class="sub-menu">
-                                <li {{ (Request::is('admin/calendar') ? 'class="active"' : '') }}>
-                                    <a href="{{ URL::to('admin/calendar') }}">
+                                @foreach ($rooms as $room)
+                                <li {{ (Request::is('admin/calendar/' . $room->id) ? 'class="active"' : '') }}>
+                                    <a href="{{ URL::to('admin/calendar/' .$room->id) }}">
                                         <i class="fa fa-angle-double-right"></i>
-                                        Room 1 Name
+                                        {{$room->name}}
                                     </a>
                                 </li>
-                                <li {{ (Request::is('admin/calendar') ? 'class="active"' : '') }}>
-                                    <a href="{{ URL::to('admin/calendar') }}">
-                                        <i class="fa fa-angle-double-right"></i>
-                                        Room 2 Name
-                                    </a>
-                                </li>
-                                <li {{ (Request::is('admin/calendar') ? 'class="active"' : '') }}>
-                                    <a href="{{ URL::to('admin/calendar') }}">
-                                        <i class="fa fa-angle-double-right"></i>
-                                        Room 3 Name
-                                    </a>
-                                </li>
+                                @endforeach
                             </ul>
                         </li>
+                        <?php /*
                         <li {{ (Request::is('admin/analytics') ? 'class="active"' : '') }}>
                             <a href="{{ URL::to('admin/analytics') }}">
                                 <i class="livicon" data-c="#7cc142" data-hc="#7cc142" data-name="barchart" data-size="18" data-loop="true"></i>
                                 Analytics
                             </a>
                         </li>
+                        */ ?>
                     </ul>
                     <!-- END SIDEBAR MENU -->
                 </div>
@@ -806,6 +787,7 @@
     </a>
     <!-- global js -->
     <script src="{{ asset('assets/js/jquery-1.11.1.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/js/jquery-encoder-0.1.0.js') }}" type="text/javascript"></script>
     @if (Request::is('admin/form_builder2') || Request::is('admin/gridmanager') || Request::is('admin/portlet_draggable'))
         <script src="{{ asset('assets/vendors/form_builder1/js/jquery.ui.min.js') }}"></script>
     @endif
@@ -918,138 +900,7 @@
     </script>
 <!--touchspin-->
 <script src="{{ asset('assets/vendors/touchspin/dist/jquery.bootstrap-touchspin.js') }}"></script>
-<script>
-    $("input[name='demo1']").TouchSpin({
-        min: .5,
-        max: 100,
-        step: .1,
-        decimals: 1,
-        boostat: 2,
-        maxboostedstep: 5,
-        postfix: '%'
-    });
-    $("input[name='adults']").TouchSpin({
-        min: 1,
-        max: 500,
-        step: 1,
-        decimals: 0,
-        boostat: 5,
-        maxboostedstep: 50,
-        postfix: 'adults'
-    });
-    $("input[name='kids']").TouchSpin({
-        min: 1,
-        max: 500,
-        step: 1,
-        decimals: 0,
-        boostat: 5,
-        maxboostedstep: 50,
-        postfix: 'kids'
-    });
-
-    $("input[name='demo2']").TouchSpin({
-        min: -1000000000,
-        max: 1000000000,
-        stepinterval: 50,
-        maxboostedstep: 10000000,
-        prefix: '$'
-    });
-
-    $("input[name='demo_vertical']").TouchSpin({
-        verticalbuttons: true
-    });
-
-    $("input[name='demo_vertical2']").TouchSpin({
-        verticalbuttons: true,
-        verticalupclass: 'glyphicon glyphicon-plus',
-        verticaldownclass: 'glyphicon glyphicon-minus'
-    });
-
-    $("input[name='demo3']").TouchSpin();
-
-    $("input[name='demo3_21']").TouchSpin({
-        initval: 40
-    });
-
-    $("input[name='demo3_22']").TouchSpin({
-        initval: 40
-    });
-
-    $("input[name='demo4']").TouchSpin({
-        postfix: "a button",
-        postfix_extraclass: "btn btn-default"
-    });
-
-    $("input[name='demo4_2']").TouchSpin({
-        postfix: "a button",
-        postfix_extraclass: "btn btn-default"
-    });
-
-    $("input[name='demo5']").TouchSpin({
-        prefix: "pre",
-        postfix: "post"
-    });
-
-    $("input[name='demo6']").TouchSpin({
-        buttondown_class: "btn btn-link",
-        buttonup_class: "btn btn-link"
-    });
-    </script>
 <script type="text/javascript" src="{{ asset('assets/vendors/multiselect/js/bootstrap-multiselect.js') }}"></script>
-<script type="text/javascript">
-    $(document).ready(function() {
-        $('.multiselect').multiselect();
-        $('#example2').multiselect();
-        $('#example27').multiselect({
-            includeSelectAllOption: true
-        });
-
-        // Add options for example 28.
-        for (var i = 1; i <= 100; i++) {
-            $('#example28').append('<option value="' + i + '">' + i + '</option>');
-        }
-
-        $('#example28').multiselect({
-            includeSelectAllOption: true,
-            enableFiltering: true,
-            maxHeight: 150
-        });
-
-        $('#example28-values').on('click', function() {
-            var values = [];
-
-            $('option:selected', $('#example28')).each(function() {
-                values.push($(this).val());
-            });
-
-            alert(values);
-        })
-
-        $('#example3').multiselect({
-            buttonClass: 'btn btn-link'
-        });
-        $('#example6').multiselect();
-
-        $('#example9').multiselect({
-            onChange: function(element, checked) {
-                alert('Change event invoked!');
-                console.log(element);
-            }
-        });
-
-        $('#example13').multiselect();
-
-        $('#example19').multiselect();
-
-        $('#example35').multiselect();
-        $('#example35-enable').on('click', function() {
-            $('#example35').multiselect('enable');
-        });
-        $('#example35-disable').on('click', function() {
-            $('#example35').multiselect('disable');
-        });
-    });
-    </script>
 <!--switch-->
 <script src="{{ asset('assets/vendors/switch/dist/js/bootstrap-switch.js') }}"></script>
 <script type="text/javascript">$("[name='my-checkbox']").bootstrapSwitch();</script>
@@ -1066,7 +917,15 @@
 <!-- modal  -->
 <script src="{{ asset('assets/vendors/modal/js/classie.js') }}"></script>
 <script src="{{ asset('assets/vendors/modal/js/modalEffects.js') }}"></script>
-
+<!--
+<script src="{{ asset('assets/vendors/x-editable/jquery.mockjax.js') }}"></script>
+<script src="{{ asset('assets/vendors/x-editable/moment.min.js') }}"></script>
+<script src="{{ asset('assets/vendors/x-editable/select2.js') }}"></script>
+<script src="{{ asset('assets/vendors/x-editable/bootstrap-editable.js') }}"></script>
+<script src="{{ asset('assets/vendors/x-editable/typeahead.js') }}"></script>
+<script src="{{ asset('assets/vendors/x-editable/typeaheadjs.js') }}"></script>
+<script src="{{ asset('assets/vendors/x-editable/address.js') }}"></script>
+-->
 <!-- begining of page level js -->
 <!-- InputMask -->
 <script src="{{ asset('assets/vendors/input-mask/jquery.inputmask.js') }}" type="text/javascript"></script>
@@ -1080,7 +939,6 @@
 <script src="{{ asset('assets/vendors/autogrow/js/jQuery-autogrow.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/vendors/maxlength/bootstrap-maxlength.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/js/pages/formelements.js') }}" type="text/javascript"></script>
-
-
+<script src="{{ asset('assets/js/custom.js') }}" type="text/javascript"></script>
 </body>
 </html>

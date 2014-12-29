@@ -31,5 +31,4 @@ class User extends SentryUserModel {
 	use SoftDeletingTrait;
 
     protected $dates = ['deleted_at'];
-
 }
