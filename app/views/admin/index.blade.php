@@ -34,7 +34,7 @@ Event Detail
         <div class="col-lg-3 col-md-6 col-sm-6 margin_10 animated fadeInLeftBig">
             <!-- Trans label pie charts strats here-->
             <div class="lightbluebg no-radius">
-                <a href="{{ URL::to('admin/analytics') }}" style="color:white;">
+                <!-- <a href="{{ URL::to('admin/analytics') }}" style="color:white;"> -->
                     <div class="panel-body squarebox square_boxs">
                         <div class="col-xs-12 pull-left nopadmar">
                             <div class="row">
@@ -55,13 +55,13 @@ Event Detail
                             </div>
                         </div>
                     </div>
-                </a>
+                <!-- </a> -->
             </div>
         </div>
         <div class="col-lg-3 col-md-6 col-sm-6 margin_10 animated fadeInUpBig">
             <!-- Trans label pie charts strats here-->
             <div class="palebluecolorbg no-radius">
-                <a href="{{ URL::to('admin/upcoming_events') }}" style="color:white;">
+                <a href="{{ URL::to('admin/events/0') }}" style="color:white;">
                     <div class="panel-body squarebox square_boxs">
                         <div class="col-xs-12 pull-left nopadmar">
                             <div class="row">
@@ -89,6 +89,8 @@ Event Detail
         <div class="col-lg-3 col-sm-6 col-md-6 margin_10 animated fadeInDownBig">
             <!-- Trans label pie charts strats here-->
             <div class="goldbg no-radius">
+                <a href="{{ URL::to('admin/events/1') }}" style="color:white;">
+
                 <div class="panel-body squarebox square_boxs">
                     <div class="col-xs-12 pull-left nopadmar">
                         <div class="row">
@@ -110,11 +112,14 @@ Event Detail
                         </div>
                     </div>
                 </div>
+                </a>
             </div>
         </div>
         <div class="col-lg-3 col-md-6 col-sm-6 margin_10 animated fadeInRightBig">
             <!-- Trans label pie charts strats here-->
             <div class="redbg no-radius">
+                <a href="{{ URL::to('admin/events/2') }}" style="color:white;">
+
                 <div class="panel-body squarebox square_boxs">
                     <div class="col-xs-12 pull-left nopadmar">
                         <div class="row">
@@ -136,6 +141,7 @@ Event Detail
                         </div>
                     </div>
                 </div>
+                </a>
             </div>
         </div>
     </div>
