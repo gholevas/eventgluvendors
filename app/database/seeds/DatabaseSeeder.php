@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder {
 		DB::table('menu_extras')->truncate();
 		DB::table('menus')->truncate();
 		DB::table('addons')->truncate();
+		DB::table('room_pictures')->truncate();
 		DB::table('rooms')->truncate();
 		DB::table('venues')->truncate();
 		DB::table('events')->truncate();
