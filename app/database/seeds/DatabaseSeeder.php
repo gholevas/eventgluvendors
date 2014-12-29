@@ -11,6 +11,8 @@ class DatabaseSeeder extends Seeder {
 	{
 		Eloquent::unguard();
 
+		DB::statement('SET FOREIGN_KEY_CHECKS = 0');
+
 		DB::table('todo_lists')->truncate();
 		DB::table('menu_extras')->truncate();
 		DB::table('menus')->truncate();
@@ -19,6 +21,8 @@ class DatabaseSeeder extends Seeder {
 		DB::table('rooms')->truncate();
 		DB::table('venues')->truncate();
 		DB::table('events')->truncate();
+
+		DB::statement('SET FOREIGN_KEY_CHECKS = 1');
 
 		$this->call('VenueSeeder');
 		$this->call('AdminSeeder');
