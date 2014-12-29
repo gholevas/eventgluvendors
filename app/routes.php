@@ -68,18 +68,21 @@ Route::group(array('prefix' => 'admin'), function () {
     	}
     });
 
-	Route::group(array('before' => 'Sentry'), function()
+    Route::filter('Sentry_json', function()
+    {
+    	if (!Sentry::check())
+    	{
+			return Response::json(array(
+				'error'    => 400,
+				'message'  => 'You must be logged in'
+				),
+				400
+			);
+    	}
+    });
+
+	Route::group(array('before' => 'Sentry_json'), function()
 	{
-		Route::get('/', function()
-		{
-			return Redirect::to('admin/index');
-		});
-
-		require('routes/index_route.php');
-		require('routes/calendar_route.php');
-		require('routes/events_route.php');
-		require('routes/event_route.php');
-
 		Route::group(array('prefix' => 'json'), function()
 		{
 			Route::group(array('prefix' => 'todo'), function()
@@ -111,13 +114,22 @@ Route::group(array('prefix' => 'admin'), function () {
 			{
 				require('routes/json_calendar.php');
 			});
-
 		});
-
-
 	});
 
 
+	Route::group(array('before' => 'Sentry'), function()
+	{
+		Route::get('/', function()
+		{
+			return Redirect::to('admin/index');
+		});
+
+		require('routes/index_route.php');
+		require('routes/calendar_route.php');
+		require('routes/events_route.php');
+		require('routes/event_route.php');
+	});
 
 	// OUR EDITS END HERE
 
