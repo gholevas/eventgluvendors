@@ -989,6 +989,12 @@ $(function()
 				},
 				function(r)
 				{
+					$('#quote-pp').text('$0.00');
+					$('#quote-dc').text('$0.00');
+					$('#quote-tax').text('$0.00');
+					$('#quote-grat').text('$0.00');
+					$('#quote-total').text('$0.00');
+					$('.quoteText').fadeIn();
 					//alert('Error: ' + "\n" + r.message);
 				}
 			);
